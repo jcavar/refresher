@@ -12,7 +12,7 @@ var KVOContext = ""
 
 public class PullToRefreshView: UIView {
     
-    var previousOffset: CGFloat?
+    var previousOffset: CGFloat = 0
     var pullToRefreshAction: (() -> ())
     var label: UILabel = UILabel()
     var activityIndicator: UIActivityIndicatorView
@@ -83,7 +83,7 @@ public class PullToRefreshView: UIView {
                 var scrollView = object as? UIScrollView
                 if (scrollView != nil) {
                     println(scrollView?.contentOffset.y)
-                    if (scrollView?.contentOffset.y <= -50) {
+                    if (previousOffset < -pullToRefreshDefaultHeight) {
                         label.text = "release to refresh"
                         if (scrollView?.dragging == false && loading == false) {
                             loading = true
@@ -91,7 +91,7 @@ public class PullToRefreshView: UIView {
                     } else {
                         label.text = "pull to refresh"
                     }
-                    previousOffset = scrollView?.contentOffset.y
+                    previousOffset = scrollView!.contentOffset.y
                 }
             }
         } else {
@@ -106,7 +106,7 @@ public class PullToRefreshView: UIView {
         var insets = scrollView.contentInset
         
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
-        scrollView.contentOffset.y = previousOffset!
+        scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
         UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
             scrollView.contentInset = UIEdgeInsets(top: 50, left: insets.left, bottom: insets.bottom, right: insets.right)
