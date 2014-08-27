@@ -6,6 +6,17 @@ refresher is pull to refresh library written in Swift.
 
 ##Usage
 
+```swift
+tableView.addPullToRefreshWithAction {
+	NSOperationQueue().addOperationWithBlock {
+    	sleep(2)
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+        	self.tableView.stopPullToRefresh()
+        }
+    }
+}
+```
+
 ##Requirements
 
 ##Installation
