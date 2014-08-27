@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C7D1CF8E199BB3C8009FD485"
-               BuildableName = "PullToRefresh.app"
-               BlueprintName = "PullToRefresh"
+               BuildableName = "PullToRefreshDemo.app"
+               BlueprintName = "PullToRefreshDemo"
                ReferencedContainer = "container:PullToRefresh.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -67,8 +67,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D1CF8E199BB3C8009FD485"
-            BuildableName = "PullToRefresh.app"
-            BlueprintName = "PullToRefresh"
+            BuildableName = "PullToRefreshDemo.app"
+            BlueprintName = "PullToRefreshDemo"
             ReferencedContainer = "container:PullToRefresh.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -86,8 +86,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D1CF8E199BB3C8009FD485"
-            BuildableName = "PullToRefresh.app"
-            BlueprintName = "PullToRefresh"
+            BuildableName = "PullToRefreshDemo.app"
+            BlueprintName = "PullToRefreshDemo"
             ReferencedContainer = "container:PullToRefresh.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -104,8 +104,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7D1CF8E199BB3C8009FD485"
-            BuildableName = "PullToRefresh.app"
-            BlueprintName = "PullToRefresh"
+            BuildableName = "PullToRefreshDemo.app"
+            BlueprintName = "PullToRefreshDemo"
             ReferencedContainer = "container:PullToRefresh.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
