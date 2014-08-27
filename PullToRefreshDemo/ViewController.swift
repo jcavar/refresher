@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        tableView.addPullToRefreshWithAction({ () -> () in
+        tableView.addPullToRefreshWithAction {
             
             NSOperationQueue().addOperationWithBlock {
                 
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        })
+        }
     }
 
     override func didReceiveMemoryWarning() {
