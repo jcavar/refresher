@@ -19,7 +19,6 @@
 		C7AC6CFD19A894DF007107DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C7AC6CF719A894DF007107DF /* Main.storyboard */; };
 		C7AC6CFE19A894DF007107DF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7AC6CF919A894DF007107DF /* Images.xcassets */; };
 		C7AC6D0019A894DF007107DF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC6CFB19A894DF007107DF /* ViewController.swift */; };
-		C7AC6D0419A8957B007107DF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C7AC6D0219A8957B007107DF /* Info.plist */; };
 		C7AC6D0519A8957B007107DF /* PullToRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AC6D0319A8957B007107DF /* PullToRefreshTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -378,7 +377,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7AC6D0419A8957B007107DF /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,7 +644,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PullToRefreshTests/Info.plist;
+				INFOPLIST_FILE = PullToRefreshDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -661,7 +659,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = PullToRefreshTests/Info.plist;
+				INFOPLIST_FILE = PullToRefreshDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
