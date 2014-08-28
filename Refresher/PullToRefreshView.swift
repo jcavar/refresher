@@ -10,12 +10,16 @@ import UIKit
 import QuartzCore
 
 var KVOContext = ""
+let contentOffsetKeyPath = "contentOffset"
 
 public class PullToRefreshView: UIView {
     
+    public let labelTitle: UILabel = UILabel()
+
+    var defaultBounces = false
+    
     var previousOffset: CGFloat = 0
-    var pullToRefreshAction: (() -> ())
-    var label: UILabel = UILabel()
+    var pullToRefreshAction: (() -> ()) = {}
     var layerLoader: CAShapeLayer = CAShapeLayer()
     var layerSeparator: CAShapeLayer = CAShapeLayer()
     var loading: Bool = false {
@@ -37,13 +41,13 @@ public class PullToRefreshView: UIView {
     
     override init(frame: CGRect) {
         
-        pullToRefreshAction = {}
         super.init(frame: frame)
-        label.frame = bounds
-        label.textAlignment = .Center
-        label.textColor = UIColor.blackColor()
-        label.text = "pull to refresh"
-        addSubview(label)
+        
+        labelTitle.frame = bounds
+        labelTitle.textAlignment = .Center
+        labelTitle.textColor = UIColor.blackColor()
+        labelTitle.text = "Pull to refresh"
+        addSubview(labelTitle)
         
         var bezierPathLoader = UIBezierPath()
         bezierPathLoader.moveToPoint(CGPointMake(0, frame.height - 3))
@@ -67,21 +71,21 @@ public class PullToRefreshView: UIView {
     
     public required init(coder aDecoder: NSCoder) {
         
-        pullToRefreshAction = {}
         super.init(coder: aDecoder)
     }
     
     deinit {
         
         var scrollView = superview as? UIScrollView
-        scrollView?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
+        scrollView?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
     }
     
     public override func willMoveToSuperview(newSuperview: UIView!) {
 
-        superview?.removeObserver(self, forKeyPath: "contentOffset", context: &KVOContext)
+        superview?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
         if (newSuperview != nil && newSuperview.isKindOfClass(UIScrollView)) {
-            newSuperview.addObserver(self, forKeyPath: "contentOffset", options: .Initial, context: &KVOContext)
+            newSuperview.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
+            defaultBounces = (newSuperview as UIScrollView).bounces
         }
     }
     
@@ -89,7 +93,7 @@ public class PullToRefreshView: UIView {
         
         if (context == &KVOContext) {
             var scrollView = superview as? UIScrollView
-            if (keyPath == "contentOffset" && object as? UIScrollView == scrollView) {
+            if (keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
                 var scrollView = object as? UIScrollView
                 if (scrollView != nil) {
                     println(scrollView?.contentOffset.y)
@@ -98,15 +102,15 @@ public class PullToRefreshView: UIView {
                         if (scrollView?.dragging == false && loading == false) {
                             loading = true
                         } else if (loading == true) {
-                            label.text = "loading ..."
+                            labelTitle.text = "Loading ..."
                         } else {
-                            label.text = "release to refresh"
+                            labelTitle.text = "Release to refresh"
                             self.layerLoader.strokeEnd = -previousOffset / pullToRefreshDefaultHeight
                         }
                     } else if (loading == true) {
-                        label.text = "loading ..."
+                        labelTitle.text = "Loading ..."
                     } else if (previousOffset < 0) {
-                        label.text = "pull to refresh"
+                        labelTitle.text = "Pull to refresh"
                         self.layerLoader.strokeEnd = -previousOffset / pullToRefreshDefaultHeight
                     }
                     previousOffset = scrollView!.contentOffset.y
@@ -147,7 +151,7 @@ public class PullToRefreshView: UIView {
                 
                 
                 self.pullToRefreshAction()
-                scrollView.bounces = true
+                scrollView.bounces = self.defaultBounces
         })
     }
     
