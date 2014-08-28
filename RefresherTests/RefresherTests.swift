@@ -12,13 +12,37 @@ import XCTest
 class RefresherTests: XCTestCase {
     
     override func setUp() {
+        
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+
         super.tearDown()
+    }
+    
+    func testScrollViewBouncesWhenFalse() {
+        
+        var scrollView = UIScrollView()
+        scrollView.bounces = false;
+        scrollView.addPullToRefreshWithAction({ () -> () in
+        })
+        scrollView.startPullToRefresh()
+        XCTAssertTrue(!scrollView.bounces, "bounces should be false")
+        scrollView.stopPullToRefresh()
+        XCTAssertFalse(scrollView.bounces, "bounces should be false")
+    }
+    
+    func testScrollViewBouncesWhenTrue() {
+        
+        var scrollView = UIScrollView()
+        scrollView.bounces = true;
+        scrollView.addPullToRefreshWithAction({ () -> () in
+        })
+        scrollView.startPullToRefresh()
+        XCTAssertTrue(!scrollView.bounces, "bounces should be false")
+        scrollView.stopPullToRefresh()
+        XCTAssertTrue(scrollView.bounces, "bounces should be true")
     }
     
     func testPullToRefreshViewLoading() {
@@ -27,11 +51,12 @@ class RefresherTests: XCTestCase {
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         scrollView.startPullToRefresh()
-        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
         if (scrollView.pullToRefreshView != nil) {
             XCTAssertTrue(scrollView.pullToRefreshView!.loading, "loading should be true")
             scrollView.stopPullToRefresh()
             XCTAssertFalse(scrollView.pullToRefreshView!.loading, "loading should be false")
+        } else {
+            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
         }
     }
     
@@ -41,10 +66,10 @@ class RefresherTests: XCTestCase {
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         if (scrollView.pullToRefreshView != nil) {
-        XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-        XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, 0, "height should be grater than zero")
+            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, 0, "height should be grater than zero")
         } else {
-        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
         }
     }
     
