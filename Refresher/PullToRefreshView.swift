@@ -151,16 +151,16 @@ public class PullToRefreshView: UIView {
                 
                 
                 self.pullToRefreshAction()
-                scrollView.bounces = self.defaultBounces
         })
     }
     
     func stopAnimating() {
         
         self.layerLoader.removeAllAnimations()
-        
+
         var scrollView = superview as UIScrollView
         var insets = scrollView.contentInset
+        scrollView.bounces = self.defaultBounces
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             scrollView.contentInset = UIEdgeInsets(top: 0, left: insets.left, bottom: insets.bottom, right: insets.right)
         }) { (Bool) -> Void in
