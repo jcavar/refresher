@@ -16,13 +16,13 @@ public class PullToRefreshView: UIView {
     
     public let labelTitle: UILabel = UILabel()
 
-    var defaultBounces = false
+    private var scrollViewBouncesDefaultValue = false
     
-    var previousOffset: CGFloat = 0
-    var pullToRefreshAction: (() -> ()) = {}
-    var layerLoader: CAShapeLayer = CAShapeLayer()
-    var layerSeparator: CAShapeLayer = CAShapeLayer()
-    var loading: Bool = false {
+    private var previousOffset: CGFloat = 0
+    private var pullToRefreshAction: (() -> ()) = {}
+    private var layerLoader: CAShapeLayer = CAShapeLayer()
+    private var layerSeparator: CAShapeLayer = CAShapeLayer()
+    private var loading: Bool = false {
         
         didSet {
             if loading {
@@ -92,7 +92,7 @@ public class PullToRefreshView: UIView {
         superview?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
         if (newSuperview != nil && newSuperview.isKindOfClass(UIScrollView)) {
             newSuperview.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
-            defaultBounces = (newSuperview as UIScrollView).bounces
+            scrollViewBouncesDefaultValue = (newSuperview as UIScrollView).bounces
         }
     }
     
@@ -167,7 +167,7 @@ public class PullToRefreshView: UIView {
 
         var scrollView = superview as UIScrollView
         var insets = scrollView.contentInset
-        scrollView.bounces = self.defaultBounces
+        scrollView.bounces = self.scrollViewBouncesDefaultValue
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             scrollView.contentInset = UIEdgeInsets(top: 0, left: insets.left, bottom: insets.bottom, right: insets.right)
         }) { (Bool) -> Void in
