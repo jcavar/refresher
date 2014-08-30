@@ -73,7 +73,7 @@
 		C7AC6CF919A894DF007107DF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C7AC6CFA19A894DF007107DF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7AC6CFB19A894DF007107DF /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C7D1CF8F199BB3C8009FD485 /* PullToRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7D1CF8F199BB3C8009FD485 /* PullToRefreshDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PullToRefreshDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,7 +171,7 @@
 		C7D1CF90199BB3C8009FD485 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C7D1CF8F199BB3C8009FD485 /* PullToRefresh.app */,
+				C7D1CF8F199BB3C8009FD485 /* PullToRefreshDemo.app */,
 				C7AC6CCC19A7FE6D007107DF /* Refresher.framework */,
 				C7AC6CD619A7FE6D007107DF /* RefresherTests.xctest */,
 			);
@@ -245,7 +245,7 @@
 			);
 			name = PullToRefreshDemo;
 			productName = PullToRefresh;
-			productReference = C7D1CF8F199BB3C8009FD485 /* PullToRefresh.app */;
+			productReference = C7D1CF8F199BB3C8009FD485 /* PullToRefreshDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
