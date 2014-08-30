@@ -42,28 +42,19 @@ public class PullToRefreshView: UIView {
     override init(frame: CGRect) {
         
         super.init(frame: frame)
-        
+        self.autoresizingMask = .FlexibleWidth
         labelTitle.frame = bounds
         labelTitle.textAlignment = .Center
+        labelTitle.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
         labelTitle.textColor = UIColor.blackColor()
         labelTitle.text = "Pull to refresh"
         addSubview(labelTitle)
         
-        var bezierPathLoader = UIBezierPath()
-        bezierPathLoader.moveToPoint(CGPointMake(0, frame.height - 3))
-        bezierPathLoader.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 3))
-        
-        var bezierPathSeparator = UIBezierPath()
-        bezierPathSeparator.moveToPoint(CGPointMake(0, frame.height - 1))
-        bezierPathSeparator.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 1))
-        
-        layerLoader.path = bezierPathLoader.CGPath
         layerLoader.lineWidth = 4
         layerLoader.strokeColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1).CGColor
         layerLoader.strokeEnd = 0
         layer.addSublayer(layerLoader)
         
-        layerSeparator.path = bezierPathSeparator.CGPath
         layerSeparator.lineWidth = 1
         layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
         layer.addSublayer(layerSeparator)
@@ -78,6 +69,22 @@ public class PullToRefreshView: UIView {
         
         var scrollView = superview as? UIScrollView
         scrollView?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
+    }
+    
+    public override func layoutSubviews() {
+        
+        super.layoutSubviews()
+        
+        var bezierPathLoader = UIBezierPath()
+        bezierPathLoader.moveToPoint(CGPointMake(0, frame.height - 3))
+        bezierPathLoader.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 3))
+        
+        var bezierPathSeparator = UIBezierPath()
+        bezierPathSeparator.moveToPoint(CGPointMake(0, frame.height - 1))
+        bezierPathSeparator.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 1))
+        
+        layerLoader.path = bezierPathLoader.CGPath
+        layerSeparator.path = bezierPathSeparator.CGPath
     }
     
     public override func willMoveToSuperview(newSuperview: UIView!) {
