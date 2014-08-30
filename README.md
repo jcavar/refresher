@@ -1,4 +1,4 @@
-#refresher
+#refresher    [![Build Status](https://travis-ci.org/jcavar/refresher.svg)](https://travis-ci.org/jcavar/refresher)
 
 refresher is pull to refresh library written in Swift.
 
