@@ -12,17 +12,26 @@ import QuartzCore
 var KVOContext = ""
 let contentOffsetKeyPath = "contentOffset"
 
+protocol PullToRefreshViewAnimator {
+    
+    func startAnimation()
+    func stopAnimation()
+    func changeProgress(progress: CGFloat)
+    func layoutLayers(superview: UIView)
+}
+
 public class PullToRefreshView: UIView {
     
-    public let labelTitle: UILabel = UILabel()
+    public let labelTitle = UILabel()
 
-    private var scrollViewBouncesDefaultValue = false
+    private var scrollViewBouncesDefaultValue: Bool = false
+    
+    private var animator: PullToRefreshViewAnimator = Animator()
     
     private var previousOffset: CGFloat = 0
     private var pullToRefreshAction: (() -> ()) = {}
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
-    private var loading: Bool = false {
+
+    internal var loading: Bool = false {
         
         didSet {
             if loading {
@@ -33,10 +42,20 @@ public class PullToRefreshView: UIView {
         }
     }
     
+    
+    //MARK: Object lifecycle methods
+
     convenience init(action :(() -> ()), frame: CGRect) {
         
         self.init(frame: frame)
         pullToRefreshAction = action;
+    }
+    
+    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
+        
+        self.init(frame: frame)
+        self.pullToRefreshAction = action;
+        self.animator = animator
     }
     
     override init(frame: CGRect) {
@@ -49,15 +68,6 @@ public class PullToRefreshView: UIView {
         labelTitle.textColor = UIColor.blackColor()
         labelTitle.text = "Pull to refresh"
         addSubview(labelTitle)
-        
-        layerLoader.lineWidth = 4
-        layerLoader.strokeColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1).CGColor
-        layerLoader.strokeEnd = 0
-        layer.addSublayer(layerLoader)
-        
-        layerSeparator.lineWidth = 1
-        layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
-        layer.addSublayer(layerSeparator)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -71,20 +81,13 @@ public class PullToRefreshView: UIView {
         scrollView?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
     }
     
+    
+    //MARK: UIView methods
+    
     public override func layoutSubviews() {
         
         super.layoutSubviews()
-        
-        var bezierPathLoader = UIBezierPath()
-        bezierPathLoader.moveToPoint(CGPointMake(0, frame.height - 3))
-        bezierPathLoader.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 3))
-        
-        var bezierPathSeparator = UIBezierPath()
-        bezierPathSeparator.moveToPoint(CGPointMake(0, frame.height - 1))
-        bezierPathSeparator.addLineToPoint(CGPoint(x: frame.width, y: frame.height - 1))
-        
-        layerLoader.path = bezierPathLoader.CGPath
-        layerSeparator.path = bezierPathSeparator.CGPath
+        animator.layoutLayers(self)
     }
     
     public override func willMoveToSuperview(newSuperview: UIView!) {
@@ -96,6 +99,9 @@ public class PullToRefreshView: UIView {
         }
     }
     
+    
+    //MARK: KVO methods
+
     public override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         
         if (context == &KVOContext) {
@@ -112,13 +118,13 @@ public class PullToRefreshView: UIView {
                             labelTitle.text = "Loading ..."
                         } else {
                             labelTitle.text = "Release to refresh"
-                            self.layerLoader.strokeEnd = -previousOffset / pullToRefreshDefaultHeight
+                            animator.changeProgress(-previousOffset / pullToRefreshDefaultHeight)
                         }
                     } else if (loading == true) {
                         labelTitle.text = "Loading ..."
                     } else if (previousOffset < 0) {
                         labelTitle.text = "Pull to refresh"
-                        self.layerLoader.strokeEnd = -previousOffset / pullToRefreshDefaultHeight
+                        animator.changeProgress(-previousOffset / pullToRefreshDefaultHeight)
                     }
                     previousOffset = scrollView!.contentOffset.y
                 }
@@ -128,42 +134,29 @@ public class PullToRefreshView: UIView {
         }
     }
     
+    
+    //MARK: PullToRefreshView methods
+
     func startAnimating() {
         
         var scrollView = superview as UIScrollView
         var insets = scrollView.contentInset
+        insets.top = pullToRefreshDefaultHeight
         
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
         UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
-            scrollView.contentInset = UIEdgeInsets(top: 50, left: insets.left, bottom: insets.bottom, right: insets.right)
-            }, completion: {finished in
-                
-                var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
-                pathAnimationEnd.duration = 0.5
-                pathAnimationEnd.repeatCount = 100
-                pathAnimationEnd.autoreverses = true
-                pathAnimationEnd.fromValue = 0.2
-                pathAnimationEnd.toValue = 1
-                self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
-                
-                var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
-                pathAnimationStart.duration = 0.5
-                pathAnimationStart.repeatCount = 100
-                pathAnimationStart.autoreverses = true
-                pathAnimationStart.fromValue = 0
-                pathAnimationStart.toValue = 0.8
-                self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
-                
-                
+            scrollView.contentInset = insets
+        }, completion: {finished in
+                self.animator.startAnimation()
                 self.pullToRefreshAction()
         })
     }
     
     func stopAnimating() {
         
-        self.layerLoader.removeAllAnimations()
+        self.animator.stopAnimation()
 
         var scrollView = superview as UIScrollView
         var insets = scrollView.contentInset
@@ -171,7 +164,7 @@ public class PullToRefreshView: UIView {
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             scrollView.contentInset = UIEdgeInsets(top: 0, left: insets.left, bottom: insets.bottom, right: insets.right)
         }) { (Bool) -> Void in
-            self.layerLoader.strokeEnd = 0
+            self.animator.changeProgress(0)
         }
     }
 }
