@@ -1,11 +1,13 @@
-#refresher  
+#Refresher  
 
-refresher is pull to refresh library written in Swift.
+Refresher is pull to refresh library written in Swift.
 
 ![alt preview](https://raw.githubusercontent.com/jcavar/refresher/master/preview.gif)
 
 ##Usage
 
+
+###Basic usage
 ```swift
 tableView.addPullToRefreshWithAction {
 	NSOperationQueue().addOperationWithBlock {
@@ -16,6 +18,7 @@ tableView.addPullToRefreshWithAction {
     }
 }
 ```
+###Custom animations
 
 ##Requirements
 
@@ -23,5 +26,5 @@ tableView.addPullToRefreshWithAction {
 
 ##Credits
 
-refresher is created by [Josip Cavar](https://twitter.com/josip04) and inspired by [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh/)
+Refresher is created by [Josip Cavar](https://twitter.com/josip04) and inspired by [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh/)
 
