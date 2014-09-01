@@ -157,7 +157,6 @@ public class PullToRefreshView: UIView {
     func stopAnimating() {
         
         self.animator.stopAnimation()
-
         var scrollView = superview as UIScrollView
         var insets = scrollView.contentInset
         scrollView.bounces = self.scrollViewBouncesDefaultValue
