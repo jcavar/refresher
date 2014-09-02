@@ -39,8 +39,8 @@ tableView.addPullToRefreshWithAction({
 
 ##Requirements
 
-Xcode 6 Beta 5
-iOS 8.0
+*	Xcode 6 Beta 5
+*	iOS 8.0
 
 ##Installation
 
