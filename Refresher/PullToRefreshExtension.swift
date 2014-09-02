@@ -29,6 +29,13 @@ extension UIScrollView {
         addSubview(pullToRefreshView)
     }
     
+    public func addPullToRefreshWithAction(action :(() -> ()), withAnimator animator: PullToRefreshViewAnimator) {
+        
+        var pullToRefreshView = PullToRefreshView(action: action, frame: CGRectMake(0, -pullToRefreshDefaultHeight, self.frame.size.width, pullToRefreshDefaultHeight), animator: animator)
+        pullToRefreshView.tag = pullToRefreshTag
+        addSubview(pullToRefreshView)
+    }
+    
     public func startPullToRefresh() {
 
         pullToRefreshView?.loading = true

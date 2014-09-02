@@ -12,7 +12,7 @@ import QuartzCore
 var KVOContext = ""
 let contentOffsetKeyPath = "contentOffset"
 
-protocol PullToRefreshViewAnimator {
+public protocol PullToRefreshViewAnimator {
     
     func startAnimation()
     func stopAnimation()
