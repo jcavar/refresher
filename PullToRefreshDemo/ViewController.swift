@@ -16,7 +16,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        /*
         tableView.addPullToRefreshWithAction {
+            
+            NSOperationQueue().addOperationWithBlock {
+                
+                sleep(5)
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.tableView.stopPullToRefresh()
+                }
+            }
+        }
+        */
+        tableView.addPullToRefreshWithAction({ () -> () in
             
             NSOperationQueue().addOperationWithBlock {
                 
@@ -25,7 +37,7 @@ class ViewController: UIViewController {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        }
+        }, withAnimator: CustomAnimator())
     }
 
     override func didReceiveMemoryWarning() {
