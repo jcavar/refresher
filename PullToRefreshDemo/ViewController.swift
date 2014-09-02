@@ -28,10 +28,8 @@ class ViewController: UIViewController {
             }
         }
         */
-        tableView.addPullToRefreshWithAction({ () -> () in
-            
+        tableView.addPullToRefreshWithAction({
             NSOperationQueue().addOperationWithBlock {
-                
                 sleep(2)
                 NSOperationQueue.mainQueue().addOperationWithBlock {
                     self.tableView.stopPullToRefresh()
