@@ -27,14 +27,14 @@ Refresher supports custom animations on Pull to refresh view. You need to create
 Then, just pass your custom animator in addPullToRefrshWithAction:
 
 ```swift
-tableView.addPullToRefreshWithAction {
-	NSOperationQueue().addOperationWithBlock {
-    	sleep(2)
+tableView.addPullToRefreshWithAction({ () -> () in            
+  	NSOperationQueue().addOperationWithBlock {
+   		sleep(2)
         NSOperationQueue.mainQueue().addOperationWithBlock {
         	self.tableView.stopPullToRefresh()
         }
     }
-}
+}, withAnimator: CustomAnimator())
 ```
 
 ##Requirements
