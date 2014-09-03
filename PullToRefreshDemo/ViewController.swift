@@ -35,7 +35,7 @@ class ViewController: UIViewController {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        }, withAnimator: CustomAnimator())
+        }, withAnimator: PacmanAnimator())
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
-        cell.textLabel.text = "Row " + String(indexPath.row + 1)
+        cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
     }
 }
