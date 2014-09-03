@@ -10,7 +10,7 @@ import Foundation
 import Refresher
 import QuartzCore
 
-class CustomAnimator: PullToRefreshViewAnimator {
+class BeatAnimator: PullToRefreshViewAnimator {
     
     private var layerLoader: CAShapeLayer = CAShapeLayer()
     private var layerSeparator: CAShapeLayer = CAShapeLayer()
