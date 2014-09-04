@@ -53,10 +53,10 @@ class BeatAnimator: PullToRefreshViewAnimator {
     func layoutLayers(superview: UIView) {
         
         if layerLoader.superlayer == nil {
-            superview.layer .addSublayer(layerLoader)
+            superview.layer.addSublayer(layerLoader)
         }
         if layerSeparator.superlayer == nil {
-            superview.layer .addSublayer(layerSeparator)
+            superview.layer.addSublayer(layerSeparator)
         }
         var bezierPathLoader = UIBezierPath()
         bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
