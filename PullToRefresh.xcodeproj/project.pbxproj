@@ -122,9 +122,9 @@
 			children = (
 				C7AC6CEF19A800A8007107DF /* PullToRefreshExtension.swift */,
 				C7AC6CF019A800A8007107DF /* PullToRefreshView.swift */,
+				C7DA91CC19B31B7C00C4012B /* Animator.swift */,
 				C7AC6CD019A7FE6D007107DF /* Refresher.h */,
 				C7AC6CCE19A7FE6D007107DF /* Supporting Files */,
-				C7DA91CC19B31B7C00C4012B /* Animator.swift */,
 			);
 			path = Refresher;
 			sourceTree = "<group>";
