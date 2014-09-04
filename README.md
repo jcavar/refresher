@@ -1,5 +1,7 @@
 #Refresher  
 
+![Refresher: Pull to refresh in Swift](https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png)
+
 Refresher is pull to refresh library written in Swift.
 
 ![alt preview](https://raw.githubusercontent.com/jcavar/refresher/master/preview.gif)
