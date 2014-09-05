@@ -50,8 +50,10 @@ Required methods that your custom object need to implement are:
 
 ##Examples
 
-![alt preview](https://raw.githubusercontent.com/jcavar/refresher/master/preview.gif)
-![alt preview custom](https://raw.githubusercontent.com/jcavar/refresher/master/preview_custom.gif)
+
+![Refresher: preview default](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_default.gif)
+![Refresher: preview beat](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_beat.gif)
+![Refresher: preview pacman](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_pacman.gif)
 
 ##Credits
 
