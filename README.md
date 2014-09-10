@@ -50,12 +50,11 @@ Required methods that your custom object need to implement are:
 
 ##Examples
 
-
 ![Refresher: preview default](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_default.gif)
 ![Refresher: preview beat](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_beat.gif)
 ![Refresher: preview pacman](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_pacman.gif)
 
 ##Credits
 
-Refresher is created by [Josip Cavar](https://twitter.com/josip04) and inspired by [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh/)
+Refresher is created by [Josip Cavar](https://twitter.com/josip04) and inspired by [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh/). If you have suggestions or bug reports, feel free to send pull request or [create new issue](https://github.com/jcavar/refresher/issues/new).
 
