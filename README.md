@@ -1,7 +1,7 @@
 ![Refresher: Pull to refresh in Swift](https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png)
 
 Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. 
-Refresher supports custom animations on pull to refresh view.
+Refresher also supports custom animations.
 
 ##Usage
 
@@ -20,8 +20,8 @@ tableView.addPullToRefreshWithAction {
 
 ###Custom animations
 
-Refresher supports custom animations on Pull to refresh view. You need to create object that conforms to PullToRefreshViewAnimator protocol.
-Then, just pass your custom animator in addPullToRefrshWithAction:
+Refresher supports custom animations on `PullToRefreshView`. You need to create object that conforms to `PullToRefreshViewAnimator` protocol.
+Then, just pass your custom animator in `addPullToRefrshWithAction`:
 
 ```swift
 tableView.addPullToRefreshWithAction({           
@@ -43,7 +43,7 @@ Required methods that your custom object need to implement are:
 
 ##Requirements
 
-*	Xcode 6 Beta 7
+*	Xcode 6
 *	iOS 8.0
 
 ##Installation
