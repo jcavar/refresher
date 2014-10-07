@@ -1,5 +1,7 @@
 ![Refresher: Pull to refresh in Swift](https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png)
 
+[![Build Status](https://travis-ci.org/jcavar/refresher.svg)](https://travis-ci.org/jcavar/refresher)
+ 
 Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. 
 Refresher also supports custom animations.
 
