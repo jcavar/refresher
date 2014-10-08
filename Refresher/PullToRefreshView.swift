@@ -129,21 +129,21 @@ public class PullToRefreshView: UIView {
                 if (scrollView != nil) {
                     println(scrollView?.contentOffset.y)
                     
-                    var triggerOffset = self.frame.size.height + scrollViewInsetsDefaultValue.top
-                    if (previousOffset < -triggerOffset) {
+                    var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
+                    if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView?.dragging == false && loading == false) {
                             loading = true
                         } else if (loading == true) {
                             labelTitle.text = "Loading ..."
                         } else {
                             labelTitle.text = "Release to refresh"
-                            animator.changeProgress(-previousOffset / triggerOffset)
+                            animator.changeProgress(-offsetWithoutInsets / self.frame.size.height)
                         }
                     } else if (loading == true) {
                         labelTitle.text = "Loading ..."
-                    } else if (previousOffset < scrollViewInsetsDefaultValue.top) {
+                    } else if (offsetWithoutInsets < 0) {
                         labelTitle.text = "Pull to refresh"
-                        animator.changeProgress(-previousOffset / triggerOffset)
+                        animator.changeProgress(-offsetWithoutInsets / self.frame.size.height)
                     }
                     previousOffset = scrollView!.contentOffset.y
                 }
