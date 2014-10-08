@@ -75,9 +75,40 @@ class RefresherTests: XCTestCase {
         }
     }
     
+    func testPullToRefreshViewLoadingWithInsets() {
+        
+        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+
+        scrollView.addPullToRefreshWithAction({ () -> () in
+        })
+        scrollView.startPullToRefresh()
+        if (scrollView.pullToRefreshView != nil) {
+            XCTAssertTrue(scrollView.pullToRefreshView!.loading, "loading should be true")
+            scrollView.stopPullToRefresh()
+            XCTAssertFalse(scrollView.pullToRefreshView!.loading, "loading should be false")
+        } else {
+            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        }
+    }
+    
     func testPullToRefreshViewFrame() {
         
         var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        scrollView.addPullToRefreshWithAction({ () -> () in
+        })
+        if (scrollView.pullToRefreshView != nil) {
+            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, 0, "height should be grater than zero")
+        } else {
+            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        }
+    }
+    
+    func testPullToRefreshViewFrameWithInsets() {
+        
+        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         if (scrollView.pullToRefreshView != nil) {
