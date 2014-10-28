@@ -52,6 +52,12 @@ class ViewController: UIViewController {
             }
         }, withAnimator: PacmanAnimator())
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // Test refreshing programatically
+        tableView.startPullToRefresh()
+    }
 
     override func didReceiveMemoryWarning() {
         

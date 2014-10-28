@@ -167,6 +167,7 @@ public class PullToRefreshView: UIView {
         scrollView.bounces = false
         UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
             scrollView.contentInset = insets
+            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
         }, completion: {finished in
                 self.animator.startAnimation()
                 self.action()
