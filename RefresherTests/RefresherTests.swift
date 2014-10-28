@@ -99,7 +99,7 @@ class RefresherTests: XCTestCase {
         })
         if (scrollView.pullToRefreshView != nil) {
             XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, 0, "height should be grater than zero")
+            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
         } else {
             XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
         }
@@ -113,7 +113,7 @@ class RefresherTests: XCTestCase {
         })
         if (scrollView.pullToRefreshView != nil) {
             XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, 0, "height should be grater than zero")
+            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
         } else {
             XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
         }
