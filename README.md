@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/jcavar/refresher.svg)](https://travis-ci.org/jcavar/refresher)
  
 Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. 
-Refresher also supports custom animations.
+Refresher also supports custom pull to refresh views.
 
 ##Usage
 
@@ -20,10 +20,10 @@ tableView.addPullToRefreshWithAction {
 }
 ```
 
-###Custom animations
+###Custom views
 
-Refresher supports custom animations on `PullToRefreshView`. You need to create object that conforms to `PullToRefreshViewAnimator` protocol.
-Then, just pass your custom animator in `addPullToRefrshWithAction`:
+Refresher supports custom subclasses of `PullToRefreshView`.
+Then, just pass your custom view in `addPullToRefreshWithAction`:
 
 ```swift
 tableView.addPullToRefreshWithAction({           
@@ -33,15 +33,16 @@ tableView.addPullToRefreshWithAction({
         	self.tableView.stopPullToRefresh()
         }
     }
-}, withAnimator: CustomAnimator())
+}, withView: CustomPullToRefreshView())
 ```
 
-Required methods that your custom object need to implement are:
+Methods that you would probably want to override:
 
-*   `func startAnimation()` - Called when user release finger from phone and when loading actually starts. Here you need to start your animations.
-*   `func stopAnimation()` - Called when loading is over. Stop your animations here.
+*   `func initialize()` - Called when the view is created (either by InterfaceBuilder or using init()). Do setup like adding subviews etc. here.
+*   `func stateChanged()` - Called whenever the state of the PullToRefreshView changes. Update for example a label's text here.
+*   `func startAnimating()` - Called when user release finger from phone and when loading actually starts. Here you need to start your animations.
+*   `func stopAnimating()` - Called when loading is over. Stop your animations here.
 *   `func changeProgress(progress: CGFloat)` - Called when user is pulling view. If you want to implement some progress like behaviour on pull this method is called.
-*   `func layoutLayers(superview: UIView)` - Called when layoutSubviews method is called. Here you want to implement layout changes and add your layers or views to view.
 
 ##Requirements
 
