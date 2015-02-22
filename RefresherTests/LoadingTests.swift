@@ -39,32 +39,32 @@ class LoadingTests: XCTestCase {
     func testPullToRefreshViewLoading() {
     
         var scrollView = UIScrollView()
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertTrue(scrollView.pullToRefreshView!.loading, "loading should be true")
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        if let pullToRefreshView = scrollView.pullToRefreshView {
+            XCTAssertTrue(pullToRefreshView.loading, "loading should be true")
             scrollView.stopPullToRefresh()
-            XCTAssertFalse(scrollView.pullToRefreshView!.loading, "loading should be false")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+            XCTAssertFalse(pullToRefreshView.loading, "loading should be false")
         }
     }
     
     func testPullToRefreshViewLoadingWithInsets() {
         
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        var scrollView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 500.0))
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.contentInset = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 0.0, right: 0.0)
 
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertTrue(scrollView.pullToRefreshView!.loading, "loading should be true")
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        if let pullToRefreshView = scrollView.pullToRefreshView {
+            XCTAssertTrue(pullToRefreshView.loading, "loading should be true")
             scrollView.stopPullToRefresh()
-            XCTAssertFalse(scrollView.pullToRefreshView!.loading, "loading should be false")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+            XCTAssertFalse(pullToRefreshView.loading, "loading should be false")
         }
     }
 }

@@ -26,6 +26,12 @@ import XCTest
 
 class FrameTests: XCTestCase {
     
+    private var scrollView: UIScrollView {
+        let scrollView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 500.0))
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        return scrollView
+    }
+    
     override func setUp() {
         
         super.setUp()
@@ -37,55 +43,45 @@ class FrameTests: XCTestCase {
     }
     
     func testPullToRefreshViewFrame() {
-        
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        let scrollView = self.scrollView
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        if let pullToRefreshView = scrollView.pullToRefreshView {
+            XCTAssertEqual(pullToRefreshView.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+            XCTAssertGreaterThan(pullToRefreshView.frame.height, CGFloat(0.0), "height should be grater than zero")
         }
     }
     
     func testPullToRefreshViewFrameWithInsets() {
-        
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        let scrollView = self.scrollView
+        scrollView.contentInset = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 0.0, right: 0.0)
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        if let pullToRefreshView = scrollView.pullToRefreshView {
+            XCTAssertEqual(pullToRefreshView.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+            XCTAssertGreaterThan(pullToRefreshView.frame.height, CGFloat(0.0), "height should be grater than zero")
         }
     }
     
     func testPullToRefreshViewFrameWhenStarted() {
-        
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        let scrollView = self.scrollView
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.height, scrollView.contentInset.top, "height should be equal to inset when animating")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        if let pullToRefreshView = scrollView.pullToRefreshView {
+            XCTAssertEqual(pullToRefreshView.frame.height, scrollView.contentInset.top, "height should be equal to inset when animating")
         }
     }
     
     func testPullToRefreshViewOffsetWhenStarted() {
-        
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        let scrollView = self.scrollView
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(-scrollView.contentInset.top, scrollView.contentOffset.y, "content offset should be equal to content inset")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
-        }
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertEqual(-scrollView.contentInset.top, scrollView.contentOffset.y, "content offset should be equal to content inset")
     }
 }

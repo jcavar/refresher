@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         /*
         tableView.addPullToRefreshWithAction {
@@ -50,19 +49,13 @@ class ViewController: UIViewController {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        }, withAnimator: PacmanAnimator())
+        }, withView: PacmanPullToRefreshView())
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         // Test refreshing programatically
         tableView.startPullToRefresh()
-    }
-
-    override func didReceiveMemoryWarning() {
-        
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
@@ -73,7 +66,7 @@ class ViewController: UIViewController {
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
-        cell.textLabel?.text = "Row " + String(indexPath.row + 1)
+        cell.textLabel?.text = "Row \(indexPath.row.successor())"
         return cell
     }
 }
