@@ -66,8 +66,8 @@ public class DefaultPullToRefreshView: PullToRefreshView {
         ]
         addConstraints(constraints)
         
-        layer.addSublayer(layerLoader)
         layer.addSublayer(layerSeparator)
+        layer.addSublayer(layerLoader)
     }
     
     public override func layoutSubviews() {
@@ -104,14 +104,14 @@ public class DefaultPullToRefreshView: PullToRefreshView {
         pathAnimationEnd.repeatCount = 100
         pathAnimationEnd.autoreverses = true
         pathAnimationEnd.fromValue = 0.2
-        pathAnimationEnd.toValue = 1
+        pathAnimationEnd.toValue = 1.0
         layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
         var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
         pathAnimationStart.repeatCount = 100
         pathAnimationStart.autoreverses = true
-        pathAnimationStart.fromValue = 0
+        pathAnimationStart.fromValue = 0.0
         pathAnimationStart.toValue = 0.8
         layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }

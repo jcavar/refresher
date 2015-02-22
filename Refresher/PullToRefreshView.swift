@@ -80,7 +80,7 @@ public class PullToRefreshView: UIView {
         initialize()
     }
     
-    public func initialize() { }
+    public func initialize() { } // Overridden by subclasses
     
     deinit {
         (superview as? UIScrollView)?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
@@ -151,7 +151,7 @@ public class PullToRefreshView: UIView {
         }
     }
     
-    public func changeProgress(progress: CGFloat) { } // Overridden by subviews
+    public func changeProgress(progress: CGFloat) { } // Overridden by subclasses
     
-    public func stateChanged(previousState: State) { } // Overridden by subviews
+    public func stateChanged(previousState: State) { } // Overridden by subclasses
 }
