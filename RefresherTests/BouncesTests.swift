@@ -39,11 +39,12 @@ class BouncesTests: XCTestCase {
     func testScrollViewBouncesWhenFalse() {
         
         var scrollView = UIScrollView()
-        scrollView.bounces = false;
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.bounces = false
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        XCTAssertTrue(!scrollView.bounces, "bounces should be false")
+        XCTAssertFalse(scrollView.bounces, "bounces should be false")
         scrollView.stopPullToRefresh()
         XCTAssertFalse(scrollView.bounces, "bounces should be false")
     }
@@ -51,11 +52,12 @@ class BouncesTests: XCTestCase {
     func testScrollViewBouncesWhenTrue() {
         
         var scrollView = UIScrollView()
-        scrollView.bounces = true;
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        scrollView.bounces = true
+        scrollView.addPullToRefreshWithAction({})
+        scrollView.layoutIfNeeded()
         scrollView.startPullToRefresh()
-        XCTAssertTrue(!scrollView.bounces, "bounces should be false")
+        XCTAssertFalse(scrollView.bounces, "bounces should be false")
         scrollView.stopPullToRefresh()
         XCTAssertTrue(scrollView.bounces, "bounces should be true")
     }
