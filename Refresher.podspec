@@ -1,16 +1,16 @@
 Pod::Spec.new do |s|
 
   s.name         = "Refresher"
-  s.version      = "0.1.1"
+  s.version      = "0.2"
   s.summary      = "Pull to refresh in Swift"
 
   s.description  = <<-DESC
-                   Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. Refresher also supports custom animations.
+                   Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. Refresher also supports pull to refresh views.
                    DESC
 
   s.homepage     = "https://github.com/jcavar/refresher"
-  s.screenshots  = "https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_beat.gif", 
-  				   "https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_default.gif", 
+  s.screenshots  = "https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_beat.gif",
+  				   "https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_default.gif",
   				   "https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_pacman.gif"
 
   s.license      = "MIT"
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/jcavar/refresher.git", :tag => "0.1.1" }
+  s.source       = { :git => "https://github.com/jcavar/refresher.git", :tag => "0.2" }
 
   s.source_files  = "Refresher/*.swift"
 
