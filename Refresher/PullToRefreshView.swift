@@ -24,8 +24,8 @@
 import UIKit
 import QuartzCore
 
-var KVOContext = ""
-let contentOffsetKeyPath = "contentOffset"
+private var KVOContext = "RefresherKVOContext"
+private let contentOffsetKeyPath = "contentOffset"
 
 public protocol PullToRefreshViewAnimator {
     
@@ -37,7 +37,28 @@ public protocol PullToRefreshViewAnimator {
 
 public class PullToRefreshView: UIView {
     
-    public let labelTitle = UILabel() // this maybe should be added in animator???
+    public let labelTitle: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .Center
+        label.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
+        label.textColor = UIColor.blackColor()
+        return label
+    }() // this maybe should be added in animator???
+    
+    public var showsLabel: Bool = true {
+        didSet {
+            if showsLabel && labelTitle.superview == nil {
+                labelTitle.frame = bounds
+                addSubview(labelTitle)
+            } else if !showsLabel && labelTitle.superview != nil {
+                labelTitle.removeFromSuperview()
+            }
+        }
+    }
+    
+    public var pullToRefreshText = NSLocalizedString("Pull to refresh", comment: "Refresher")
+    public var loadingText = NSLocalizedString("Loading ...", comment: "Refresher")
+    public var releaseToRefreshText = NSLocalizedString("Release to refresh", comment: "Refresher")
 
     private var scrollViewBouncesDefaultValue: Bool = false
     private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
@@ -58,16 +79,12 @@ public class PullToRefreshView: UIView {
         }
     }
     
+    internal var debugLoggingEnabled = false
+    
     
     //MARK: Object lifecycle methods
 
-    convenience init(action :(() -> ()), frame: CGRect) {
-        
-        self.init(frame: frame)
-        self.action = action;
-    }
-    
-    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
+    convenience init(action: (() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
         
         self.init(frame: frame)
         self.action = action;
@@ -79,10 +96,7 @@ public class PullToRefreshView: UIView {
         super.init(frame: frame)
         self.autoresizingMask = .FlexibleWidth
         labelTitle.frame = bounds
-        labelTitle.textAlignment = .Center
-        labelTitle.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
-        labelTitle.textColor = UIColor.blackColor()
-        labelTitle.text = "Pull to refresh"
+        labelTitle.text = pullToRefreshText
         addSubview(labelTitle)
     }
     
@@ -127,23 +141,26 @@ public class PullToRefreshView: UIView {
             if (keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
                 var scrollView = object as? UIScrollView
                 if (scrollView != nil) {
-                    println(scrollView?.contentOffset.y)
-                    
+                    if debugLoggingEnabled {
+                        if let yOffset = scrollView?.contentOffset.y {
+                            println("Refresher: y content offset: \(yOffset)")
+                        }
+                    }
                     var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
-                    if (offsetWithoutInsets < -self.frame.size.height) {
+                    if (offsetWithoutInsets < -frame.size.height) {
                         if (scrollView?.dragging == false && loading == false) {
                             loading = true
                         } else if (loading == true) {
-                            labelTitle.text = "Loading ..."
+                            labelTitle.text = loadingText
                         } else {
-                            labelTitle.text = "Release to refresh"
-                            animator.changeProgress(-offsetWithoutInsets / self.frame.size.height)
+                            labelTitle.text = releaseToRefreshText
+                            animator.changeProgress(-offsetWithoutInsets / frame.size.height)
                         }
                     } else if (loading == true) {
-                        labelTitle.text = "Loading ..."
+                        labelTitle.text = loadingText
                     } else if (offsetWithoutInsets < 0) {
-                        labelTitle.text = "Pull to refresh"
-                        animator.changeProgress(-offsetWithoutInsets / self.frame.size.height)
+                        labelTitle.text = pullToRefreshText
+                        animator.changeProgress(-offsetWithoutInsets / frame.size.height)
                     }
                     previousOffset = scrollView!.contentOffset.y
                 }
