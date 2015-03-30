@@ -42,7 +42,7 @@ class ViewController: UIViewController {
                 }
             }
         }
-        */
+
         tableView.addPullToRefreshWithAction({
             NSOperationQueue().addOperationWithBlock {
                 sleep(2)
@@ -51,6 +51,18 @@ class ViewController: UIViewController {
                 }
             }
         }, withAnimator: PacmanAnimator())
+        */
+        
+        if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
+            tableView.addPullToRefreshWithAction({
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopPullToRefresh()
+                    }
+                }
+            }, withAnimator: customSubview, withSubview: customSubview)
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
