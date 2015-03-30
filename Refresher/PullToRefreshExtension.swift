@@ -24,8 +24,8 @@
 import Foundation
 import UIKit
 
-let pullToRefreshTag = 324
-let pullToRefreshDefaultHeight: CGFloat = 50
+private let pullToRefreshTag = 324
+private let pullToRefreshDefaultHeight: CGFloat = 50
 
 extension UIScrollView {
     
