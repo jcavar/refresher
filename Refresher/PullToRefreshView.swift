@@ -24,7 +24,7 @@
 import UIKit
 import QuartzCore
 
-var KVOContext = ""
+var KVOContext = "RefresherKVOContext"
 let contentOffsetKeyPath = "contentOffset"
 
 public protocol PullToRefreshViewAnimator {
@@ -127,8 +127,6 @@ public class PullToRefreshView: UIView {
             if (keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
                 var scrollView = object as? UIScrollView
                 if (scrollView != nil) {
-                    println(scrollView?.contentOffset.y)
-                    
                     var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView?.dragging == false && loading == false) {
