@@ -1,4 +1,4 @@
-![Refresher: Pull to refresh in Swift](https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png)
+<img src="https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png" width="250" />
 
 [![Build Status](https://travis-ci.org/jcavar/refresher.svg)](https://travis-ci.org/jcavar/refresher)
  
