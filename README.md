@@ -50,14 +50,14 @@ Required methods that your custom object need to implement are:
 
 ##Installation
 
-###As git submodules:
+###Git submodule
 
 1.	Add Refresher as a git submodule into your top-level project directory or simply copy whole folder
 2.	Find `PullToRefresh.xcodeproj` and drag it into the file navigator of your app project.
 3.	In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
 4.	Under "General" panel go to "Linked Frameworks and Libraries" and add `Refresher.framework`
 
-###As framework:
+###Framework
 
 1.	Simply download Refresher
 2.	Build it and you should find `Refresher.framework` under "Products" group.
