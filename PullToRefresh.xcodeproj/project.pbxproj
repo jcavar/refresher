@@ -282,7 +282,6 @@
 					};
 					C7D1CF8E199BB3C8009FD485 = {
 						CreatedOnToolsVersion = 6.0;
-						DevelopmentTeam = 424L75GG87;
 					};
 				};
 			};
