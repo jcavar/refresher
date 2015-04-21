@@ -56,7 +56,7 @@ extension UIScrollView {
     
     // If you want to add pull to refresh functionality to your UIScrollView just call this method and pass action closure you want to execute while pull to refresh is animating. If you want to stop pull to refresh you must do that manually calling stopPullToRefreshView methods on your scroll view
     // If you want to use your custom view, pass your own PullToRefreshView subclass here.
-    public func addPullToRefreshWithAction(action: PullToRefreshView.PullToRefreshAction, withView view: PullToRefreshView = DefaultPullToRefreshView()) {
+    public func addPullToRefreshWithAction(view: PullToRefreshView = DefaultPullToRefreshView(), action: PullToRefreshView.PullToRefreshAction) {
         view.action = action
         pullToRefreshView = view
     }

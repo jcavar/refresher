@@ -62,14 +62,14 @@ public class PullToRefreshView: UIView {
     }
     
     // MARK: Object lifecycle methods
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
     }
     
-    public override init() {
-        super.init()
-    }
+//    public override init() {
+//        super.init()
+//    }
     
     public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
