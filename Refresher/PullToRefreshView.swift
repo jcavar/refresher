@@ -119,10 +119,10 @@ public class PullToRefreshView: UIView {
     public override func willMoveToSuperview(newSuperview: UIView!) {
 
         superview?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
-        if (newSuperview != nil && newSuperview.isKindOfClass(UIScrollView)) {
-            newSuperview.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
-            scrollViewBouncesDefaultValue = (newSuperview as! UIScrollView).bounces
-            scrollViewInsetsDefaultValue = (newSuperview as! UIScrollView).contentInset
+        if let scrollView = newSuperview as? UIScrollView {
+            scrollView.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
+            scrollViewBouncesDefaultValue = scrollView.bounces
+            scrollViewInsetsDefaultValue = scrollView.contentInset
         }
     }
     
@@ -132,13 +132,11 @@ public class PullToRefreshView: UIView {
     public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
         
         if (context == &KVOContext) {
-            var scrollView = superview as? UIScrollView
-            if (keyPath == contentOffsetKeyPath && object as? UIScrollView == scrollView) {
-                var scrollView = object as? UIScrollView
-                if (scrollView != nil) {
+            if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
+                if keyPath == contentOffsetKeyPath {
                     var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -self.frame.size.height) {
-                        if (scrollView?.dragging == false && loading == false) {
+                        if (scrollView.dragging == false && loading == false) {
                             loading = true
                         } else if (loading == true) {
                             labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
@@ -152,7 +150,7 @@ public class PullToRefreshView: UIView {
                         labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
                         animator.changeProgress(-offsetWithoutInsets / self.frame.size.height)
                     }
-                    previousOffset = scrollView!.contentOffset.y
+                    previousOffset = scrollView.contentOffset.y
                 }
             }
         } else {
@@ -176,8 +174,8 @@ public class PullToRefreshView: UIView {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
         }, completion: {finished in
-                self.animator.startAnimation()
-                self.action()
+            self.animator.startAnimation()
+            self.action()
         })
     }
     
@@ -186,9 +184,9 @@ public class PullToRefreshView: UIView {
         self.animator.stopAnimation()
         var scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
+        UIView.animateWithDuration(0.3, animations: {
             scrollView.contentInset = self.scrollViewInsetsDefaultValue
-        }) { (Bool) -> Void in
+        }) { finished in
             self.animator.changeProgress(0)
         }
     }
