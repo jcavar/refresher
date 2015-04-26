@@ -121,8 +121,8 @@ public class PullToRefreshView: UIView {
         superview?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
         if (newSuperview != nil && newSuperview.isKindOfClass(UIScrollView)) {
             newSuperview.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
-            scrollViewBouncesDefaultValue = (newSuperview as UIScrollView).bounces
-            scrollViewInsetsDefaultValue = (newSuperview as UIScrollView).contentInset
+            scrollViewBouncesDefaultValue = (newSuperview as! UIScrollView).bounces
+            scrollViewInsetsDefaultValue = (newSuperview as! UIScrollView).contentInset
         }
     }
     
@@ -165,7 +165,7 @@ public class PullToRefreshView: UIView {
 
     private func startAnimating() {
         
-        var scrollView = superview as UIScrollView
+        var scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
         
@@ -184,7 +184,7 @@ public class PullToRefreshView: UIView {
     private func stopAnimating() {
         
         self.animator.stopAnimation()
-        var scrollView = superview as UIScrollView
+        var scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue
         UIView.animateWithDuration(0.3, animations: { () -> Void in
             scrollView.contentInset = self.scrollViewInsetsDefaultValue
