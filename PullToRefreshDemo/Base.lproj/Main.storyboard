@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RWb-co-Zty">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RWb-co-Zty">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="Rsh-zy-279">
             <objects>
                 <navigationController id="RWb-co-Zty" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="UI3-5k-GHX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UI3-5k-GHX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.96862751245498657" green="0.96862751245498657" blue="0.96862751245498657" alpha="1" colorSpace="deviceRGB"/>
@@ -30,11 +30,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Uca-LH-LIW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="h8l-ma-AYT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
                                 <connections>
@@ -44,9 +44,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="h8l-ma-AYT" firstAttribute="top" secondItem="Da1-dG-drI" secondAttribute="bottom" id="38z-sU-HmL"/>
                             <constraint firstItem="Uca-LH-LIW" firstAttribute="top" secondItem="h8l-ma-AYT" secondAttribute="bottom" id="D8K-CE-Vq7"/>
                             <constraint firstAttribute="trailing" secondItem="h8l-ma-AYT" secondAttribute="trailing" id="Er9-4b-QHO"/>
-                            <constraint firstItem="h8l-ma-AYT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Nkq-8N-Au9"/>
                             <constraint firstItem="h8l-ma-AYT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Z3q-lz-tWx"/>
                         </constraints>
                     </view>

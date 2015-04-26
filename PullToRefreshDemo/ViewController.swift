@@ -31,6 +31,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.automaticallyAdjustsScrollViewInsets = false
         /*
         tableView.addPullToRefreshWithAction {
             
@@ -43,6 +45,7 @@ class ViewController: UIViewController {
             }
         }
         */
+        
         tableView.addPullToRefreshWithAction({
             NSOperationQueue().addOperationWithBlock {
                 sleep(2)
@@ -57,6 +60,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         // Test refreshing programatically
         tableView.startPullToRefresh()
+        
     }
 
     override func didReceiveMemoryWarning() {
