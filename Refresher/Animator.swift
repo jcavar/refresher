@@ -27,9 +27,37 @@ import UIKit
 
 class Animator: PullToRefreshViewAnimator {
     
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
-    
+    private class AnimatorView: UIView {
+        
+        private var layerLoader: CAShapeLayer = CAShapeLayer()
+        private var layerSeparator: CAShapeLayer = CAShapeLayer()
+        private let labelTitle = UILabel()
+        
+        init() {
+            
+            super.init
+            layer.addSublayer(layerLoader)
+
+            if layerSeparator.superlayer == nil {
+                superview.layer.addSublayer(layerSeparator)
+            }
+            var bezierPathLoader = UIBezierPath()
+            bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
+            bezierPathLoader.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 3))
+            
+            var bezierPathSeparator = UIBezierPath()
+            bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
+            bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
+            
+            layerLoader.path = bezierPathLoader.CGPath
+            layerSeparator.path = bezierPathSeparator.CGPath
+        }
+
+        required init(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+
     init() {
     
         layerLoader.lineWidth = 4
@@ -41,7 +69,7 @@ class Animator: PullToRefreshViewAnimator {
         
     }
     
-    func startAnimation() {
+    func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
         
         var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
@@ -60,29 +88,17 @@ class Animator: PullToRefreshViewAnimator {
         self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
-    func stopAnimation() {
-        
+    func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
+     
         self.layerLoader.removeAllAnimations()
     }
     
-    func layoutLayers(superview: UIView) {
+    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         
-        if layerLoader.superlayer == nil {
-            superview.layer.addSublayer(layerLoader)
-        }
-        if layerSeparator.superlayer == nil {
-            superview.layer.addSublayer(layerSeparator)
-        }
-        var bezierPathLoader = UIBezierPath()
-        bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
-        bezierPathLoader.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 3))
+    }
+    
+    func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
-        var bezierPathSeparator = UIBezierPath()
-        bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
-        bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
-        
-        layerLoader.path = bezierPathLoader.CGPath
-        layerSeparator.path = bezierPathSeparator.CGPath
     }
     
     func changeProgress(progress: CGFloat) {
