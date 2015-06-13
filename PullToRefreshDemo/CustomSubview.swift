@@ -9,26 +9,38 @@
 import UIKit
 import Refresher
 
+
 class CustomSubview: UIView, PullToRefreshViewAnimator {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelTitle: UILabel!
     
-    func startAnimation() {
+    
+    func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
         
         activityIndicator.startAnimating()
+        labelTitle.text = "Loading"
     }
     
-    func stopAnimation() {
+    func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
         
         activityIndicator.stopAnimating()
+        labelTitle.text = ""
     }
     
-    func changeProgress(progress: CGFloat) {
+    func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
     }
     
-    func layoutLayers(superview: UIView) {
+    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         
+        switch state {
+        case .Loading:
+            labelTitle.text = "Loading"
+        case .PullToRefresh:
+            labelTitle.text = "Pull to refresh"
+        case .ReleaseToRefresh:
+            labelTitle.text = "Release to refresh"
+        }
     }
 }

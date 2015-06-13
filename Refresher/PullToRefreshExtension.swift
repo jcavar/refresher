@@ -46,14 +46,6 @@ extension UIScrollView {
         addSubview(pullToRefreshView)
     }
     
-    // If you want to use your custom animation when pull to refresh is animating, you should call this method and pass your animator object.
-    public func addPullToRefreshWithAction(action :(() -> ()), withAnimator animator: PullToRefreshViewAnimator) {
-        
-        var pullToRefreshView = PullToRefreshView(action: action, frame: CGRectMake(0, -pullToRefreshDefaultHeight, self.frame.size.width, pullToRefreshDefaultHeight), animator: animator)
-        pullToRefreshView.tag = pullToRefreshTag
-        addSubview(pullToRefreshView)
-    }
-    
     // If you want to use your custom animation and custom subview when pull to refresh is animating, you should call this method and pass your animator and view objects.
     public func addPullToRefreshWithAction(action :(() -> ()), withAnimator animator: PullToRefreshViewAnimator, withSubview subview: UIView) {
         

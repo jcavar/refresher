@@ -43,15 +43,14 @@ class ViewController: UIViewController {
             }
         }
 
-        tableView.addPullToRefreshWithAction({
-            NSOperationQueue().addOperationWithBlock {
-                sleep(2)
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.tableView.stopPullToRefresh()
-                }
+        let pacmanAnimator = PacmanAnimator(frame: CGRectMake(0, 0, 320, 80))
+        tableView.addPullToRefreshWithAction({ () -> () in
+            sleep(2)
+            NSOperationQueue.mainQueue().addOperationWithBlock {
+                self.tableView.stopPullToRefresh()
             }
-        }, withAnimator: PacmanAnimator())
-        */
+        }, withAnimator: pacmanAnimator, withSubview: pacmanAnimator)
+     */
         
         if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
             tableView.addPullToRefreshWithAction({
@@ -63,6 +62,18 @@ class ViewController: UIViewController {
                 }
             }, withAnimator: customSubview, withSubview: customSubview)
         }
+
+  /*
+
+        tableView.addPullToRefreshWithAction {
+            NSOperationQueue().addOperationWithBlock {
+                sleep(2)
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.tableView.stopPullToRefresh()
+                }
+            }
+        }   
+        */
     }
     
     override func viewDidAppear(animated: Bool) {

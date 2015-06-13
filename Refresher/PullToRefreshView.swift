@@ -30,6 +30,8 @@ let contentOffsetKeyPath = "contentOffset"
 public enum PullToRefreshViewState {
 
     case Loading
+    case PullToRefresh
+    case ReleaseToRefresh
 }
 
 public protocol PullToRefreshViewAnimator {
@@ -46,7 +48,7 @@ public class PullToRefreshView: UIView {
     private var scrollViewBouncesDefaultValue: Bool = false
     private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
 
-    private var animator: PullToRefreshViewAnimator = Animator()
+    private var animator: PullToRefreshViewAnimator
     private var action: (() -> ()) = {}
 
     private var previousOffset: CGFloat = 0
@@ -67,34 +69,38 @@ public class PullToRefreshView: UIView {
 
     convenience init(action :(() -> ()), frame: CGRect) {
         
-        self.init(frame: frame)
+        var bounds = frame
+        bounds.origin.y = 0
+        let animator = Animator(frame: bounds)
+        self.init(frame: frame, animator: animator)
         self.action = action;
+        addSubview(animator.animatorView)
     }
 
     convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator, subview: UIView) {
         
-        self.init(frame: frame)
+        self.init(frame: frame, animator: animator)
         self.action = action;
-        self.animator = animator
         subview.frame = self.bounds
         addSubview(subview)
     }
     
     convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
         
-        self.init(frame: frame)
+        self.init(frame: frame, animator: animator)
         self.action = action;
-        self.animator = animator
     }
     
-    override init(frame: CGRect) {
-        
+    init(frame: CGRect, animator: PullToRefreshViewAnimator) {
+     
+        self.animator = animator
         super.init(frame: frame)
         self.autoresizingMask = .FlexibleWidth
     }
     
     public required init(coder aDecoder: NSCoder) {
         
+        self.animator = Animator(frame: CGRectZero)
         super.init(coder: aDecoder)
         // Currently it is not supported to load view from nib
     }
@@ -130,16 +136,16 @@ public class PullToRefreshView: UIView {
                     if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView.dragging == false && loading == false) {
                             loading = true
-                        } else if (loading == true) {
-                            //labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
+                        } else if (loading) {
+                            self.animator.pullToRefresh(self, stateDidChange: .Loading)
                         } else {
-                            //labelTitle.text = NSLocalizedString("Release to refresh", comment: "Refresher")
+                            self.animator.pullToRefresh(self, stateDidChange: .ReleaseToRefresh)
                             animator.pullToRefresh(self, progressDidChange: -offsetWithoutInsets / self.frame.size.height)
                         }
-                    } else if (loading == true) {
-                        //labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
+                    } else if (loading) {
+                        self.animator.pullToRefresh(self, stateDidChange: .Loading)
                     } else if (offsetWithoutInsets < 0) {
-                        //labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
+                        self.animator.pullToRefresh(self, stateDidChange: .PullToRefresh)
                         animator.pullToRefresh(self, progressDidChange: -offsetWithoutInsets / self.frame.size.height)
                     }
                     previousOffset = scrollView.contentOffset.y

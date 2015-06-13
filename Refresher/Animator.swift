@@ -25,84 +25,75 @@ import Foundation
 import QuartzCore
 import UIKit
 
+internal class AnimatorView: UIView {
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.setTranslatesAutoresizingMaskIntoConstraints(false)
+        return label
+    }()
+    
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        activity.setTranslatesAutoresizingMaskIntoConstraints(false)
+        return activity
+    }()
+    
+    override init(frame: CGRect) {
+        
+        super.init(frame: frame)
+        autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        addSubview(titleLabel)
+        addSubview(activityIndicatorView)
+        
+        let leftActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 16)
+        let centerActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
+        
+        let leftTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: activityIndicatorView, attribute: .Right, multiplier: 1, constant: 16)
+        let centerTitleConstraint = NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: titleLabel, attribute: .CenterY, multiplier: 1, constant: 0)
+
+        addConstraints([leftActivityConstraint, centerActivityConstraint, leftTitleConstraint, centerTitleConstraint])
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class Animator: PullToRefreshViewAnimator {
     
-    private class AnimatorView: UIView {
-        
-        private var layerLoader: CAShapeLayer = CAShapeLayer()
-        private var layerSeparator: CAShapeLayer = CAShapeLayer()
-        private let labelTitle = UILabel()
-        
-        init() {
-            
-            super.init
-            layer.addSublayer(layerLoader)
+    internal let animatorView: AnimatorView
 
-            if layerSeparator.superlayer == nil {
-                superview.layer.addSublayer(layerSeparator)
-            }
-            var bezierPathLoader = UIBezierPath()
-            bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
-            bezierPathLoader.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 3))
-            
-            var bezierPathSeparator = UIBezierPath()
-            bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
-            bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
-            
-            layerLoader.path = bezierPathLoader.CGPath
-            layerSeparator.path = bezierPathSeparator.CGPath
-        }
-
-        required init(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-
-    init() {
+    init(frame: CGRect) {
     
-        layerLoader.lineWidth = 4
-        layerLoader.strokeColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1).CGColor
-        layerLoader.strokeEnd = 0
-        
-        layerSeparator.lineWidth = 1
-        layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
-        
+        animatorView = AnimatorView(frame: frame)
     }
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
         
-        var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
-        pathAnimationEnd.duration = 0.5
-        pathAnimationEnd.repeatCount = 100
-        pathAnimationEnd.autoreverses = true
-        pathAnimationEnd.fromValue = 0.2
-        pathAnimationEnd.toValue = 1
-        self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
-        
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
-        pathAnimationStart.duration = 0.5
-        pathAnimationStart.repeatCount = 100
-        pathAnimationStart.autoreverses = true
-        pathAnimationStart.fromValue = 0
-        pathAnimationStart.toValue = 0.8
-        self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
+        animatorView.activityIndicatorView.startAnimating()
+        animatorView.titleLabel.text = "Loading"
     }
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
      
-        self.layerLoader.removeAllAnimations()
-    }
-    
-    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
-        
+        animatorView.activityIndicatorView.stopAnimating()
+        animatorView.titleLabel.text = ""
     }
     
     func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
     }
     
-    func changeProgress(progress: CGFloat) {
+    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         
-        self.layerLoader.strokeEnd = progress
+        switch state {
+        case .Loading:
+            animatorView.titleLabel.text = "Loading"
+        case .PullToRefresh:
+            animatorView.titleLabel.text = "Pull to refresh"
+        case .ReleaseToRefresh:
+            animatorView.titleLabel.text = "Release to refresh"
+        }
     }
 }

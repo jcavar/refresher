@@ -25,6 +25,7 @@ import Foundation
 import Refresher
 import QuartzCore
 
+/*
 class BeatAnimator: PullToRefreshViewAnimator {
     
     private var layerLoader: CAShapeLayer = CAShapeLayer()
@@ -90,3 +91,4 @@ class BeatAnimator: PullToRefreshViewAnimator {
         self.layerLoader.strokeEnd = progress
     }
 }
+*/

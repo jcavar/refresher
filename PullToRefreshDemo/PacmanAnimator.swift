@@ -26,12 +26,14 @@ import Refresher
 import QuartzCore
 import UIKit
 
-class PacmanAnimator: PullToRefreshViewAnimator {
+class PacmanAnimator: UIView, PullToRefreshViewAnimator {
     
     private var layerLoader: CAShapeLayer = CAShapeLayer()
     private var layerSeparator: CAShapeLayer = CAShapeLayer()
     
-    init() {
+    override init(frame: CGRect) {
+        
+        super.init(frame: frame)
         
         layerLoader.lineWidth = 8
         layerLoader.strokeColor = UIColor(red: 0, green: 0.7, blue: 1, alpha: 1).CGColor
@@ -41,10 +43,28 @@ class PacmanAnimator: PullToRefreshViewAnimator {
         layerSeparator.lineWidth = 8
         layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
         layerSeparator.fillColor = UIColor.clearColor().CGColor
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
+        
+        self.layerLoader.strokeEnd = progress
+    }
+    
+    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         
     }
     
-    func startAnimation() {
+    func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
+        
+        self.layerLoader.removeAllAnimations()
+
+    }
+    
+    func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
         
         var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
@@ -63,31 +83,25 @@ class PacmanAnimator: PullToRefreshViewAnimator {
         self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
-    func stopAnimation() {
+    override func layoutSubviews() {
         
-        self.layerLoader.removeAllAnimations()
-    }
-    
-    func layoutLayers(superview: UIView) {
+        super.layoutSubviews()
         
-        if layerSeparator.superlayer == nil {
-            superview.layer.addSublayer(layerSeparator)
+        if let superview = superview {
+            if layerSeparator.superlayer == nil {
+                superview.layer.addSublayer(layerSeparator)
+            }
+            if layerLoader.superlayer == nil {
+                superview.layer.addSublayer(layerLoader)
+            }
+            var center = CGPoint(x: 30, y: superview.frame.size.height / 2)
+            var bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
+            var bezierPathSeparator = UIBezierPath()
+            bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
+            bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
+            
+            layerLoader.path = bezierPathLoader.CGPath
+            layerSeparator.path = bezierPathLoader.CGPath
         }
-        if layerLoader.superlayer == nil {
-            superview.layer.addSublayer(layerLoader)
-        }
-        var center = CGPoint(x: 30, y: superview.frame.size.height / 2)
-        var bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
-        var bezierPathSeparator = UIBezierPath()
-        bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
-        bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
-        
-        layerLoader.path = bezierPathLoader.CGPath
-        layerSeparator.path = bezierPathLoader.CGPath
-    }
-    
-    func changeProgress(progress: CGFloat) {
-        
-        self.layerLoader.strokeEnd = progress
     }
 }
