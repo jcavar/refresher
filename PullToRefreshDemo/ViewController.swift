@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = false
         /*
         tableView.addPullToRefreshWithAction {
             

@@ -49,7 +49,7 @@ class BeatAnimator: PullToRefreshViewAnimator {
         pathAnimationEnd.autoreverses = true
         pathAnimationEnd.fromValue = 1
         pathAnimationEnd.toValue = 0.8
-        self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
+        layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
         let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
@@ -57,12 +57,12 @@ class BeatAnimator: PullToRefreshViewAnimator {
         pathAnimationStart.autoreverses = true
         pathAnimationStart.fromValue = 0
         pathAnimationStart.toValue = 0.2
-        self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
+        layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
     func stopAnimation() {
         
-        self.layerLoader.removeAllAnimations()
+        layerLoader.removeAllAnimations()
     }
     
     func layoutLayers(superview: UIView) {
