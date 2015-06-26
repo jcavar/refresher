@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         super.viewDidLoad()
         
-        self.automaticallyAdjustsScrollViewInsets = false
+        automaticallyAdjustsScrollViewInsets = false
         /*
         tableView.addPullToRefreshWithAction {
             
@@ -57,10 +57,10 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+
         super.viewDidAppear(animated)
         // Test refreshing programatically
         tableView.startPullToRefresh()
-        
     }
 
     override func didReceiveMemoryWarning() {

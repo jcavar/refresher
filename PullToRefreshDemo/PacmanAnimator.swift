@@ -28,8 +28,8 @@ import UIKit
 
 class PacmanAnimator: PullToRefreshViewAnimator {
     
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
+    private let layerLoader: CAShapeLayer = CAShapeLayer()
+    private let layerSeparator: CAShapeLayer = CAShapeLayer()
     
     init() {
         
@@ -46,26 +46,26 @@ class PacmanAnimator: PullToRefreshViewAnimator {
     
     func startAnimation() {
         
-        var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
         pathAnimationEnd.autoreverses = true
         pathAnimationEnd.fromValue = 1
         pathAnimationEnd.toValue = 0.8
-        self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
+        layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
         pathAnimationStart.repeatCount = 100
         pathAnimationStart.autoreverses = true
         pathAnimationStart.fromValue = 0
         pathAnimationStart.toValue = 0.2
-        self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
+        layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
     func stopAnimation() {
         
-        self.layerLoader.removeAllAnimations()
+        layerLoader.removeAllAnimations()
     }
     
     func layoutLayers(superview: UIView) {
@@ -76,9 +76,9 @@ class PacmanAnimator: PullToRefreshViewAnimator {
         if layerLoader.superlayer == nil {
             superview.layer.addSublayer(layerLoader)
         }
-        var center = CGPoint(x: 30, y: superview.frame.size.height / 2)
-        var bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
-        var bezierPathSeparator = UIBezierPath()
+        let center = CGPoint(x: 30, y: superview.frame.size.height / 2)
+        let bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
+        let bezierPathSeparator = UIBezierPath()
         bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
         bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
         
@@ -88,6 +88,6 @@ class PacmanAnimator: PullToRefreshViewAnimator {
     
     func changeProgress(progress: CGFloat) {
         
-        self.layerLoader.strokeEnd = progress
+        layerLoader.strokeEnd = progress
     }
 }

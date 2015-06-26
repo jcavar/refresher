@@ -27,8 +27,8 @@ import UIKit
 
 class Animator: PullToRefreshViewAnimator {
     
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
+    private let layerLoader: CAShapeLayer = CAShapeLayer()
+    private let layerSeparator: CAShapeLayer = CAShapeLayer()
     
     init() {
     
@@ -38,31 +38,30 @@ class Animator: PullToRefreshViewAnimator {
         
         layerSeparator.lineWidth = 1
         layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
-        
     }
     
     func startAnimation() {
         
-        var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
         pathAnimationEnd.autoreverses = true
         pathAnimationEnd.fromValue = 0.2
         pathAnimationEnd.toValue = 1
-        self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
+        layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
         pathAnimationStart.repeatCount = 100
         pathAnimationStart.autoreverses = true
         pathAnimationStart.fromValue = 0
         pathAnimationStart.toValue = 0.8
-        self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
+        layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
     func stopAnimation() {
         
-        self.layerLoader.removeAllAnimations()
+        layerLoader.removeAllAnimations()
     }
     
     func layoutLayers(superview: UIView) {
@@ -87,6 +86,6 @@ class Animator: PullToRefreshViewAnimator {
     
     func changeProgress(progress: CGFloat) {
         
-        self.layerLoader.strokeEnd = progress
+        layerLoader.strokeEnd = progress
     }
 }
