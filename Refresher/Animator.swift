@@ -27,8 +27,8 @@ import UIKit
 
 class Animator: PullToRefreshViewAnimator {
     
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
+    private let layerLoader: CAShapeLayer = CAShapeLayer()
+    private let layerSeparator: CAShapeLayer = CAShapeLayer()
     
     init() {
     
@@ -43,7 +43,7 @@ class Animator: PullToRefreshViewAnimator {
     
     func startAnimation() {
         
-        var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
         pathAnimationEnd.autoreverses = true
@@ -51,7 +51,7 @@ class Animator: PullToRefreshViewAnimator {
         pathAnimationEnd.toValue = 1
         self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
         pathAnimationStart.repeatCount = 100
         pathAnimationStart.autoreverses = true
