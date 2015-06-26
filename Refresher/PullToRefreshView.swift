@@ -61,13 +61,13 @@ public class PullToRefreshView: UIView {
     
     //MARK: Object lifecycle methods
 
-    convenience init(action :(() -> ()), frame: CGRect) {
+    convenience init(action: (() -> ()), frame: CGRect) {
         
         self.init(frame: frame)
         self.action = action
     }
     
-    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
+    convenience init(action: (() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
         
         self.init(frame: frame)
         self.action = action
@@ -120,7 +120,7 @@ public class PullToRefreshView: UIView {
     
     //MARK: KVO methods
 
-    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
+    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject], context: UnsafeMutablePointer<()>) {
         
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
@@ -161,7 +161,7 @@ public class PullToRefreshView: UIView {
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
-        UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options: nil, animations: {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
         }, completion: {finished in
