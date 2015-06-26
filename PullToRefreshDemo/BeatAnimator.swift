@@ -38,7 +38,6 @@ class BeatAnimator: PullToRefreshViewAnimator {
         
         layerSeparator.lineWidth = 1
         layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
-        
     }
     
     func startAnimation() {
