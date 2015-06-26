@@ -64,13 +64,13 @@ public class PullToRefreshView: UIView {
     convenience init(action :(() -> ()), frame: CGRect) {
         
         self.init(frame: frame)
-        self.action = action;
+        self.action = action
     }
     
     convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
         
         self.init(frame: frame)
-        self.action = action;
+        self.action = action
         self.animator = animator
     }
     
