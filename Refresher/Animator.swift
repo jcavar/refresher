@@ -26,12 +26,29 @@ import QuartzCore
 import UIKit
 
 class Animator: PullToRefreshViewAnimator {
-    
-    private let layerLoader: CAShapeLayer = CAShapeLayer()
-    private let layerSeparator: CAShapeLayer = CAShapeLayer()
+
+    private var animating = false {
+        didSet {
+
+            configureLabelTitle()
+        }
+    }
+    private var progress: CGFloat = 0.0 {
+        didSet {
+
+            configureLabelTitle()
+        }
+    }
+
+    private let labelTitle = UILabel()
+    private let layerLoader = CAShapeLayer()
+    private let layerSeparator = CAShapeLayer()
     
     init() {
-    
+
+        labelTitle.textAlignment = .Center
+        labelTitle.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
+
         layerLoader.lineWidth = 4
         layerLoader.strokeColor = UIColor(red: 0, green: 0.48, blue: 1, alpha: 1).CGColor
         layerLoader.strokeEnd = 0
@@ -39,8 +56,21 @@ class Animator: PullToRefreshViewAnimator {
         layerSeparator.lineWidth = 1
         layerSeparator.strokeColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1).CGColor
     }
-    
+
+    func configureLabelTitle() {
+
+        if animating {
+            labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
+        } else if progress >= 1.0 {
+            labelTitle.text = NSLocalizedString("Release to refresh", comment: "Refresher")
+        } else {
+            labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
+        }
+    }
+
     func startAnimation() {
+
+        animating = true
         
         let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
@@ -60,12 +90,17 @@ class Animator: PullToRefreshViewAnimator {
     }
     
     func stopAnimation() {
-        
+
+        animating = false
         layerLoader.removeAllAnimations()
     }
     
     func layoutLayers(superview: UIView) {
-        
+
+        if labelTitle.superview == nil {
+          labelTitle.frame = superview.bounds
+          superview.addSubview(labelTitle)
+        }
         if layerLoader.superlayer == nil {
             superview.layer.addSublayer(layerLoader)
         }
@@ -85,7 +120,8 @@ class Animator: PullToRefreshViewAnimator {
     }
     
     func changeProgress(progress: CGFloat) {
-        
+
+        self.progress = progress
         layerLoader.strokeEnd = progress
     }
 }

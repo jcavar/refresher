@@ -76,7 +76,7 @@ class PacmanAnimator: PullToRefreshViewAnimator {
         if layerLoader.superlayer == nil {
             superview.layer.addSublayer(layerLoader)
         }
-        let center = CGPoint(x: 30, y: superview.frame.size.height / 2)
+        let center = CGPoint(x: superview.bounds.midX, y: superview.bounds.midY)
         let bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
         let bezierPathSeparator = UIBezierPath()
         bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
