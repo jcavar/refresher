@@ -37,17 +37,15 @@ public protocol PullToRefreshViewAnimator {
 
 public class PullToRefreshView: UIView {
     
-    public let labelTitle = UILabel() // this maybe should be added in animator???
-
-    private var scrollViewBouncesDefaultValue: Bool = false
-    private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
+    private var scrollViewBouncesDefaultValue = false
+    private var scrollViewInsetsDefaultValue = UIEdgeInsetsZero
 
     private var animator: PullToRefreshViewAnimator = Animator()
     private var action: (() -> ()) = {}
 
     private var previousOffset: CGFloat = 0
 
-    internal var loading: Bool = false {
+    internal var loading = false {
         
         didSet {
             if loading {
@@ -78,12 +76,6 @@ public class PullToRefreshView: UIView {
         
         super.init(frame: frame)
         autoresizingMask = .FlexibleWidth
-        labelTitle.frame = bounds
-        labelTitle.textAlignment = .Center
-        labelTitle.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
-        labelTitle.textColor = UIColor.blackColor()
-        labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
-        addSubview(labelTitle)
     }
     
     public required init(coder aDecoder: NSCoder) {
@@ -122,25 +114,16 @@ public class PullToRefreshView: UIView {
 
     public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject], context: UnsafeMutablePointer<()>) {
         
-        if (context == &KVOContext) {
+        if context == &KVOContext {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
                 if keyPath == contentOffsetKeyPath {
                     var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
-                    if (offsetWithoutInsets < -frame.size.height) {
-                        if (scrollView.dragging == false && loading == false) {
+                    if offsetWithoutInsets < -frame.size.height {
+                        if scrollView.dragging == false && loading == false {
                             loading = true
-                        } else if (loading == true) {
-                            labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
-                        } else {
-                            labelTitle.text = NSLocalizedString("Release to refresh", comment: "Refresher")
-                            animator.changeProgress(-offsetWithoutInsets / frame.size.height)
                         }
-                    } else if (loading == true) {
-                        labelTitle.text = NSLocalizedString("Loading ...", comment: "Refresher")
-                    } else if (offsetWithoutInsets < 0) {
-                        labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
-                        animator.changeProgress(-offsetWithoutInsets / frame.size.height)
                     }
+                    animator.changeProgress(-offsetWithoutInsets / frame.size.height)
                     previousOffset = scrollView.contentOffset.y
                 }
             }
