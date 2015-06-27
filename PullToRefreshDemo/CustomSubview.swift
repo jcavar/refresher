@@ -10,7 +10,7 @@ import UIKit
 import Refresher
 
 
-class CustomSubview: UIView, PullToRefreshViewAnimator {
+class CustomSubview: UIView, PullToRefreshViewDelegate {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelTitle: UILabel!

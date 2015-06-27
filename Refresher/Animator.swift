@@ -60,7 +60,7 @@ internal class AnimatorView: UIView {
     }
 }
 
-class Animator: PullToRefreshViewAnimator {
+class Animator: PullToRefreshViewDelegate {
     
     internal let animatorView: AnimatorView
 

@@ -26,7 +26,7 @@ import Refresher
 import QuartzCore
 import UIKit
 
-class PacmanAnimator: UIView, PullToRefreshViewAnimator {
+class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
     private var layerLoader: CAShapeLayer = CAShapeLayer()
     private var layerSeparator: CAShapeLayer = CAShapeLayer()

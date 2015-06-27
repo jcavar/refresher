@@ -34,7 +34,7 @@ public enum PullToRefreshViewState {
     case ReleaseToRefresh
 }
 
-public protocol PullToRefreshViewAnimator {
+public protocol PullToRefreshViewDelegate {
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView)
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView)
@@ -48,7 +48,7 @@ public class PullToRefreshView: UIView {
     private var scrollViewBouncesDefaultValue: Bool = false
     private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
 
-    private var animator: PullToRefreshViewAnimator
+    private var animator: PullToRefreshViewDelegate
     private var action: (() -> ()) = {}
 
     private var previousOffset: CGFloat = 0
@@ -77,7 +77,7 @@ public class PullToRefreshView: UIView {
         addSubview(animator.animatorView)
     }
 
-    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator, subview: UIView) {
+    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate, subview: UIView) {
         
         self.init(frame: frame, animator: animator)
         self.action = action;
@@ -85,13 +85,13 @@ public class PullToRefreshView: UIView {
         addSubview(subview)
     }
     
-    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewAnimator) {
+    convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate) {
         
         self.init(frame: frame, animator: animator)
         self.action = action;
     }
     
-    init(frame: CGRect, animator: PullToRefreshViewAnimator) {
+    init(frame: CGRect, animator: PullToRefreshViewDelegate) {
      
         self.animator = animator
         super.init(frame: frame)
