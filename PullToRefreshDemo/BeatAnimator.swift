@@ -28,8 +28,8 @@ import QuartzCore
 
 class BeatAnimator: UIView, PullToRefreshViewDelegate {
     
-    private var layerLoader = CAShapeLayer()
-    private var layerSeparator = CAShapeLayer()
+    private let layerLoader = CAShapeLayer()
+    private let layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
         
@@ -86,8 +86,12 @@ class BeatAnimator: UIView, PullToRefreshViewDelegate {
         super.layoutSubviews()
         
         if let superview = superview {
-            superview.layer.addSublayer(layerLoader)
-            superview.layer.addSublayer(layerSeparator)
+            if layerLoader.superlayer == nil {
+                superview.layer.addSublayer(layerSeparator)
+            }
+            if layerSeparator.superlayer == nil {
+                superview.layer.addSublayer(layerSeparator)
+            }
             
             let bezierPathLoader = UIBezierPath()
             bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))

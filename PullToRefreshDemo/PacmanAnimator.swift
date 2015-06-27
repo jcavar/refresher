@@ -28,8 +28,8 @@ import UIKit
 
 class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
-    private var layerLoader = CAShapeLayer()
-    private var layerSeparator = CAShapeLayer()
+    private let layerLoader = CAShapeLayer()
+    private let layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
         
@@ -94,9 +94,9 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
             if layerLoader.superlayer == nil {
                 superview.layer.addSublayer(layerLoader)
             }
-            var center = CGPoint(x: 30, y: superview.frame.size.height / 2)
-            var bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
-            var bezierPathSeparator = UIBezierPath()
+            let center = CGPoint(x: 30, y: superview.frame.size.height / 2)
+            let bezierPathLoader = UIBezierPath(arcCenter: center, radius: CGFloat(10), startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
+            let bezierPathSeparator = UIBezierPath()
             bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
             bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
             
