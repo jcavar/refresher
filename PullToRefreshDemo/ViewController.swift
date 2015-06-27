@@ -31,27 +31,31 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
         /*
-        tableView.addPullToRefreshWithAction {
-            
+        let beatAnimator = BeatAnimator(frame: CGRectMake(0, 0, 320, 80))
+        tableView.addPullToRefreshWithAction({ () -> () in
             NSOperationQueue().addOperationWithBlock {
-                
-                sleep(5)
+                sleep(2)
                 NSOperationQueue.mainQueue().addOperationWithBlock {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        }
+        }, withAnimator: beatAnimator, withSubview: beatAnimator)
 
+        */
+        
         let pacmanAnimator = PacmanAnimator(frame: CGRectMake(0, 0, 320, 80))
         tableView.addPullToRefreshWithAction({ () -> () in
-            sleep(2)
-            NSOperationQueue.mainQueue().addOperationWithBlock {
-                self.tableView.stopPullToRefresh()
+            NSOperationQueue().addOperationWithBlock {
+                sleep(2)
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    self.tableView.stopPullToRefresh()
+                }
             }
-        }, withAnimator: pacmanAnimator, withSubview: pacmanAnimator)
-     */
-        
+            }, withAnimator: pacmanAnimator, withSubview: pacmanAnimator)
+
+        /*
         if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
             tableView.addPullToRefreshWithAction({
                 NSOperationQueue().addOperationWithBlock {
@@ -63,8 +67,6 @@ class ViewController: UIViewController {
             }, withAnimator: customSubview, withSubview: customSubview)
         }
 
-  /*
-
         tableView.addPullToRefreshWithAction {
             NSOperationQueue().addOperationWithBlock {
                 sleep(2)
@@ -72,8 +74,8 @@ class ViewController: UIViewController {
                     self.tableView.stopPullToRefresh()
                 }
             }
-        }   
-        */
+        }
+    */
     }
     
     override func viewDidAppear(animated: Bool) {

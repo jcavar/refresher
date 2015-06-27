@@ -28,8 +28,8 @@ import UIKit
 
 class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
-    private var layerLoader: CAShapeLayer = CAShapeLayer()
-    private var layerSeparator: CAShapeLayer = CAShapeLayer()
+    private var layerLoader = CAShapeLayer()
+    private var layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
         
@@ -51,7 +51,7 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
     func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
-        self.layerLoader.strokeEnd = progress
+        layerLoader.strokeEnd = progress
     }
     
     func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
@@ -60,27 +60,27 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
         
-        self.layerLoader.removeAllAnimations()
+        layerLoader.removeAllAnimations()
 
     }
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
         
-        var pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
         pathAnimationEnd.autoreverses = true
         pathAnimationEnd.fromValue = 1
         pathAnimationEnd.toValue = 0.8
-        self.layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
+        layerLoader.addAnimation(pathAnimationEnd, forKey: "strokeEndAnimation")
         
-        var pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
+        let pathAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         pathAnimationStart.duration = 0.5
         pathAnimationStart.repeatCount = 100
         pathAnimationStart.autoreverses = true
         pathAnimationStart.fromValue = 0
         pathAnimationStart.toValue = 0.2
-        self.layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
+        layerLoader.addAnimation(pathAnimationStart, forKey: "strokeStartAnimation")
     }
     
     override func layoutSubviews() {
