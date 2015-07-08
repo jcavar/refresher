@@ -80,7 +80,7 @@ public class PullToRefreshView: UIView {
         autoresizingMask = .FlexibleWidth
         labelTitle.frame = bounds
         labelTitle.textAlignment = .Center
-        labelTitle.autoresizingMask = .FlexibleLeftMargin | .FlexibleRightMargin
+        labelTitle.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
         labelTitle.textColor = UIColor.blackColor()
         labelTitle.text = NSLocalizedString("Pull to refresh", comment: "Refresher")
         addSubview(labelTitle)
@@ -94,7 +94,7 @@ public class PullToRefreshView: UIView {
     
     deinit {
         
-        var scrollView = superview as? UIScrollView
+        let scrollView = superview as? UIScrollView
         scrollView?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
     }
     
@@ -120,12 +120,12 @@ public class PullToRefreshView: UIView {
     
     //MARK: KVO methods
 
-    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject], context: UnsafeMutablePointer<()>) {
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject: AnyObject]?, context: UnsafeMutablePointer<()>) {
         
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
                 if keyPath == contentOffsetKeyPath {
-                    var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
+                    let offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -frame.size.height) {
                         if (scrollView.dragging == false && loading == false) {
                             loading = true
@@ -161,7 +161,7 @@ public class PullToRefreshView: UIView {
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
-        UIView.animateWithDuration(0.3, delay: 0, options: nil, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options: [], animations: {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
         }, completion: { finished in

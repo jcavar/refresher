@@ -38,7 +38,7 @@ class BouncesTests: XCTestCase {
     
     func testScrollViewBouncesWhenFalse() {
         
-        var scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.bounces = false;
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
@@ -50,7 +50,7 @@ class BouncesTests: XCTestCase {
     
     func testScrollViewBouncesWhenTrue() {
         
-        var scrollView = UIScrollView()
+        let scrollView = UIScrollView()
         scrollView.bounces = true;
         scrollView.addPullToRefreshWithAction({ () -> () in
         })

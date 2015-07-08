@@ -72,11 +72,11 @@ class Animator: PullToRefreshViewAnimator {
         if layerSeparator.superlayer == nil {
             superview.layer.addSublayer(layerSeparator)
         }
-        var bezierPathLoader = UIBezierPath()
+        let bezierPathLoader = UIBezierPath()
         bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
         bezierPathLoader.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 3))
         
-        var bezierPathSeparator = UIBezierPath()
+        let bezierPathSeparator = UIBezierPath()
         bezierPathSeparator.moveToPoint(CGPointMake(0, superview.frame.height - 1))
         bezierPathSeparator.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 1))
         
