@@ -38,7 +38,7 @@ class FrameTests: XCTestCase {
     
     func testPullToRefreshViewFrame() {
         
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         if (scrollView.pullToRefreshView != nil) {
@@ -51,7 +51,7 @@ class FrameTests: XCTestCase {
     
     func testPullToRefreshViewFrameWithInsets() {
         
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
         scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
@@ -65,7 +65,7 @@ class FrameTests: XCTestCase {
     
     func testPullToRefreshViewFrameWhenStarted() {
         
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         scrollView.startPullToRefresh()
@@ -78,7 +78,7 @@ class FrameTests: XCTestCase {
     
     func testPullToRefreshViewOffsetWhenStarted() {
         
-        var scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
         scrollView.addPullToRefreshWithAction({ () -> () in
         })
         scrollView.startPullToRefresh()
