@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RWb-co-Zty">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="RWb-co-Zty">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -14,27 +14,94 @@
                         <color key="barTintColor" red="0.96862751245498657" green="0.96862751245498657" blue="0.96862751245498657" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="UhW-aa-ZwF"/>
+                        <segue destination="RFH-zq-9gR" kind="relationship" relationship="rootViewController" id="WGV-CK-QNn"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vwd-RL-BVZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-655" y="59"/>
         </scene>
+        <!--Choose Mode View Controller-->
+        <scene sceneID="oAy-Hl-ycD">
+            <objects>
+                <viewController id="RFH-zq-9gR" customClass="ChooseModeViewController" customModule="PullToRefreshDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jwa-dH-WnZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="WkW-1z-Uxh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SeT-4b-Nhw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ef-eQ-bwJ">
+                                <rect key="frame" x="144" y="96" width="32" height="30"/>
+                                <state key="normal" title="Beat">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="beatAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="j1e-Ug-Hw7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phb-fN-T5w">
+                                <rect key="frame" x="132" y="134" width="56" height="30"/>
+                                <state key="normal" title="Pacman">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pacmanAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="aK3-Na-Pco"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bnx-XC-RaR">
+                                <rect key="frame" x="133" y="172" width="54" height="30"/>
+                                <state key="normal" title="Custom">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="customAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="LfN-aH-EiW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5G-X9-Qyf">
+                                <rect key="frame" x="136" y="58" width="49" height="30"/>
+                                <state key="normal" title="Default">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="defaultAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="vuF-tC-pFA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="Phb-fN-T5w" secondAttribute="centerX" id="PCV-Gn-Hr1"/>
+                            <constraint firstAttribute="centerX" secondItem="8ef-eQ-bwJ" secondAttribute="centerX" id="age-3w-nqf"/>
+                            <constraint firstAttribute="centerX" secondItem="Bnx-XC-RaR" secondAttribute="centerX" id="b7p-mx-ov2"/>
+                            <constraint firstItem="8ef-eQ-bwJ" firstAttribute="top" secondItem="h5G-X9-Qyf" secondAttribute="bottom" constant="8" id="d05-jf-IhB"/>
+                            <constraint firstItem="h5G-X9-Qyf" firstAttribute="top" secondItem="Jwa-dH-WnZ" secondAttribute="bottom" constant="58" id="eMs-2s-g1f"/>
+                            <constraint firstItem="Bnx-XC-RaR" firstAttribute="top" secondItem="Phb-fN-T5w" secondAttribute="bottom" constant="8" id="mTB-9E-ci7"/>
+                            <constraint firstItem="Phb-fN-T5w" firstAttribute="top" secondItem="8ef-eQ-bwJ" secondAttribute="bottom" constant="8" id="u0s-Uu-qxY"/>
+                            <constraint firstAttribute="centerX" secondItem="h5G-X9-Qyf" secondAttribute="centerX" id="wpB-gj-h9z"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="o92-TZ-fbq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V7h-TM-QaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-243" y="59"/>
+        </scene>
         <!--Pull to refresh example-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PullToRefreshDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PullToRefreshViewController" id="BYZ-38-t0r" customClass="PullToRefreshViewController" customModule="PullToRefreshDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Da1-dG-drI"/>
                         <viewControllerLayoutGuide type="bottom" id="Uca-LH-LIW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="h8l-ma-AYT">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <sections/>
                                 <connections>
@@ -57,7 +124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-97" y="59"/>
+            <point key="canvasLocation" x="124" y="59"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

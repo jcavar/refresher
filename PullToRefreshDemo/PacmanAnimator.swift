@@ -32,7 +32,6 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     private let layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         
         layerLoader.lineWidth = 8
@@ -50,7 +49,6 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
-        
         layerLoader.strokeEnd = progress
     }
     
@@ -59,13 +57,10 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
-        
         layerLoader.removeAllAnimations()
-
     }
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
-        
         let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
@@ -84,9 +79,7 @@ class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     override func layoutSubviews() {
-        
         super.layoutSubviews()
-        
         if let superview = superview {
             if layerSeparator.superlayer == nil {
                 superview.layer.addSublayer(layerSeparator)

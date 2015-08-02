@@ -15,15 +15,12 @@ class CustomSubview: UIView, PullToRefreshViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelTitle: UILabel!
     
-    
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
-        
         activityIndicator.startAnimating()
         labelTitle.text = "Loading"
     }
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
-        
         activityIndicator.stopAnimating()
         labelTitle.text = ""
     }

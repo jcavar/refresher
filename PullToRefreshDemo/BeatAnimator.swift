@@ -32,7 +32,6 @@ class BeatAnimator: UIView, PullToRefreshViewDelegate {
     private let layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         
         layerLoader.lineWidth = 4
@@ -48,7 +47,6 @@ class BeatAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
-        
         layerLoader.strokeEnd = progress
     }
     
@@ -57,13 +55,10 @@ class BeatAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
-        
         layerLoader.removeAllAnimations()
-        
     }
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
-        
         let pathAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimationEnd.duration = 0.5
         pathAnimationEnd.repeatCount = 100
@@ -82,17 +77,14 @@ class BeatAnimator: UIView, PullToRefreshViewDelegate {
     }
     
     override func layoutSubviews() {
-        
         super.layoutSubviews()
-        
         if let superview = superview {
             if layerLoader.superlayer == nil {
-                superview.layer.addSublayer(layerSeparator)
+                superview.layer.addSublayer(layerLoader)
             }
             if layerSeparator.superlayer == nil {
                 superview.layer.addSublayer(layerSeparator)
             }
-            
             let bezierPathLoader = UIBezierPath()
             bezierPathLoader.moveToPoint(CGPointMake(0, superview.frame.height - 3))
             bezierPathLoader.addLineToPoint(CGPoint(x: superview.frame.width, y: superview.frame.height - 3))
