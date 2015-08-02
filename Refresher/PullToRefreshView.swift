@@ -24,8 +24,8 @@
 import UIKit
 import QuartzCore
 
-var KVOContext = "RefresherKVOContext"
-let contentOffsetKeyPath = "contentOffset"
+private var KVOContext = "RefresherKVOContext"
+private let ContentOffsetKeyPath = "contentOffset"
 
 public enum PullToRefreshViewState {
 
@@ -44,7 +44,6 @@ public protocol PullToRefreshViewDelegate {
 
 public class PullToRefreshView: UIView {
     
-
     private var scrollViewBouncesDefaultValue: Bool = false
     private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
 
@@ -68,7 +67,6 @@ public class PullToRefreshView: UIView {
     //MARK: Object lifecycle methods
 
     convenience init(action :(() -> ()), frame: CGRect) {
-        
         var bounds = frame
         bounds.origin.y = 0
         let animator = Animator(frame: bounds)
@@ -78,7 +76,6 @@ public class PullToRefreshView: UIView {
     }
 
     convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate, subview: UIView) {
-        
         self.init(frame: frame, animator: animator)
         self.action = action;
         subview.frame = self.bounds
@@ -86,39 +83,34 @@ public class PullToRefreshView: UIView {
     }
     
     convenience init(action :(() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate) {
-        
         self.init(frame: frame, animator: animator)
         self.action = action;
     }
     
     init(frame: CGRect, animator: PullToRefreshViewDelegate) {
-     
         self.animator = animator
         super.init(frame: frame)
         self.autoresizingMask = .FlexibleWidth
     }
     
     public required init(coder aDecoder: NSCoder) {
-        
         self.animator = Animator(frame: CGRectZero)
         super.init(coder: aDecoder)
         // Currently it is not supported to load view from nib
     }
     
     deinit {
-        
         var scrollView = superview as? UIScrollView
-        scrollView?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
+        scrollView?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
     }
     
     
     //MARK: UIView methods
     
     public override func willMoveToSuperview(newSuperview: UIView!) {
-
-        superview?.removeObserver(self, forKeyPath: contentOffsetKeyPath, context: &KVOContext)
+        superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
         if let scrollView = newSuperview as? UIScrollView {
-            scrollView.addObserver(self, forKeyPath: contentOffsetKeyPath, options: .Initial, context: &KVOContext)
+            scrollView.addObserver(self, forKeyPath: ContentOffsetKeyPath, options: .Initial, context: &KVOContext)
             scrollViewBouncesDefaultValue = scrollView.bounces
             scrollViewInsetsDefaultValue = scrollView.contentInset
         }
@@ -128,10 +120,9 @@ public class PullToRefreshView: UIView {
     //MARK: KVO methods
 
     public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
-        
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
-                if keyPath == contentOffsetKeyPath {
+                if keyPath == ContentOffsetKeyPath {
                     var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView.dragging == false && loading == false) {
@@ -160,7 +151,6 @@ public class PullToRefreshView: UIView {
     //MARK: PullToRefreshView methods
 
     private func startAnimating() {
-        
         var scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
@@ -178,7 +168,6 @@ public class PullToRefreshView: UIView {
     }
     
     private func stopAnimating() {
-        
         self.animator.pullToRefreshAnimationDidEnd(self)
         var scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue

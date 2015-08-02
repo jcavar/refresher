@@ -40,7 +40,6 @@ internal class AnimatorView: UIView {
     }()
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
         addSubview(titleLabel)
@@ -65,18 +64,15 @@ class Animator: PullToRefreshViewDelegate {
     internal let animatorView: AnimatorView
 
     init(frame: CGRect) {
-    
         animatorView = AnimatorView(frame: frame)
     }
     
     func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
-        
         animatorView.activityIndicatorView.startAnimating()
         animatorView.titleLabel.text = "Loading"
     }
     
     func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
-     
         animatorView.activityIndicatorView.stopAnimating()
         animatorView.titleLabel.text = ""
     }
@@ -86,7 +82,6 @@ class Animator: PullToRefreshViewDelegate {
     }
     
     func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
-        
         switch state {
         case .Loading:
             animatorView.titleLabel.text = "Loading"
