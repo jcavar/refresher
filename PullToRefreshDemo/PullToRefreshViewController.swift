@@ -24,58 +24,80 @@
 import UIKit
 import Refresher
 
-class ViewController: UIViewController {
+enum ExampleMode {
+    case Default
+    case Beat
+    case Pacman
+    case Custom
+}
+
+class PullToRefreshViewController: UIViewController {
                             
     @IBOutlet weak var tableView: UITableView!
+    var exampleMode = ExampleMode.Default
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-        automaticallyAdjustsScrollViewInsets = false
-        /*
-        tableView.addPullToRefreshWithAction {
-            
-            NSOperationQueue().addOperationWithBlock {
-                
-                sleep(5)
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.tableView.stopPullToRefresh()
+
+        switch exampleMode {
+        case .Default:
+            tableView.addPullToRefreshWithAction {
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopPullToRefresh()
+                    }
                 }
+            }
+        case .Beat:
+            let beatAnimator = BeatAnimator(frame: CGRectMake(0, 0, 320, 80))
+            tableView.addPullToRefreshWithAction({
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopPullToRefresh()
+                    }
+                }
+            }, withAnimator: beatAnimator)
+        case .Pacman:
+            let pacmanAnimator = PacmanAnimator(frame: CGRectMake(0, 0, 320, 80))
+            tableView.addPullToRefreshWithAction({
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopPullToRefresh()
+                    }
+                }
+            }, withAnimator: pacmanAnimator)
+        case .Custom:
+            if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
+                tableView.addPullToRefreshWithAction({
+                    NSOperationQueue().addOperationWithBlock {
+                        sleep(2)
+                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                            self.tableView.stopPullToRefresh()
+                        }
+                    }
+                }, withAnimator: customSubview)
             }
         }
-        */
-        
-        tableView.addPullToRefreshWithAction({
-            NSOperationQueue().addOperationWithBlock {
-                sleep(2)
-                NSOperationQueue.mainQueue().addOperationWithBlock {
-                    self.tableView.stopPullToRefresh()
-                }
-            }
-        }, withAnimator: PacmanAnimator())
     }
     
     override func viewDidAppear(animated: Bool) {
-
         super.viewDidAppear(animated)
-        // Test refreshing programatically
         tableView.startPullToRefresh()
     }
 
     override func didReceiveMemoryWarning() {
-        
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-
         return 50
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        
         var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
