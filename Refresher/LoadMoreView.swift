@@ -122,12 +122,6 @@ public class LoadMoreView: UIView {
     
     func processOffsetChange(#scrollView: UIScrollView) {
 
-//        let cid = NSStringFromUIEdgeInsets(scrollView.contentInset)
-//        let cidd = NSStringFromUIEdgeInsets(scrollViewInsetsDefaultValue)
-//        println("======================= \ncontent offset: \(scrollView.contentOffset.y)")
-//        println("content size: \(scrollView.contentSize)      insets:\(cid)")
-//        println("scrollViewInsetsDefaultValue: \(cidd)      previousOffset:\(previousOffset)\n==================================")
-        
         var contentHeight:CGFloat = 0
         if let collectionView = scrollView as? UICollectionView {
             contentHeight = collectionView.collectionViewLayout.collectionViewContentSize().height
@@ -140,11 +134,6 @@ public class LoadMoreView: UIView {
         let overOffset = scrollView.contentSize.height <  scrollView.frame.size.height ?
             previousOffset:
             (previousOffset + scrollView.frame.size.height) - contentHeight
-        
-        println("======================= \npreviousOffset: \(previousOffset)")
-        println("overOffset: \(overOffset)      self height:\(frame.size.height)")
-        println("\n==================================")
-
         
         if (overOffset > frame.size.height) {
             if (scrollView.dragging == false && loading == false) {
