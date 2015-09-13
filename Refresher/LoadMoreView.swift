@@ -156,17 +156,12 @@ public class LoadMoreView: UIView {
 
     func processContentChange(#scrollView: UIScrollView) {
         // change contentSize
-        if let collectionView = scrollView as? UICollectionView {
-            var height = collectionView.collectionViewLayout.collectionViewContentSize().height
-            frame.origin.y = height
+        if scrollView.contentSize.height == 0 {
+            frame.origin.y = scrollView.frame.size.height
+        } else if scrollView.contentSize.height <  scrollView.frame.size.height {
+            frame.origin.y = scrollView.frame.size.height
         } else {
-            if scrollView.contentSize.height == 0 {
-                frame.origin.y = scrollView.frame.size.height
-            } else if scrollView.contentSize.height <  scrollView.frame.size.height {
-                frame.origin.y = scrollView.frame.size.height
-            } else {
-                frame.origin.y = scrollView.contentSize.height
-            }
+            frame.origin.y = scrollView.contentSize.height
         }
     }
 
