@@ -161,7 +161,7 @@ public class LoadMoreView: UIView {
             frame.origin.y = height
         } else {
             if scrollView.contentSize.height == 0 {
-                frame.origin.y = 0
+                frame.origin.y = scrollView.frame.size.height
             } else if scrollView.contentSize.height <  scrollView.frame.size.height {
                 frame.origin.y = scrollView.frame.size.height
             } else {

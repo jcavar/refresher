@@ -37,7 +37,7 @@ class PullToRefreshViewController: UIViewController {
                             
     @IBOutlet weak var tableView: UITableView!
     var exampleMode = ExampleMode.Default
-    var rowsCount = 30
+    var rowsCount = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
