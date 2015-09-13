@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD15112C1BA520F100CADA26 /* LoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15112B1BA520F100CADA26 /* LoadMoreView.swift */; };
+		BD15112E1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */; };
 		C74E62281A003E3200DE5910 /* FrameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74E62271A003E3200DE5910 /* FrameTests.swift */; };
 		C74E622A1A0040FD00DE5910 /* BouncesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74E62291A0040FD00DE5910 /* BouncesTests.swift */; };
 		C7A355A219B612D5000DDC72 /* BeatAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A355A119B612D5000DDC72 /* BeatAnimator.swift */; };
@@ -69,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD15112B1BA520F100CADA26 /* LoadMoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreView.swift; sourceTree = "<group>"; };
+		BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollToLoadMoreExtension.swift; sourceTree = "<group>"; };
 		C74E62271A003E3200DE5910 /* FrameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameTests.swift; sourceTree = "<group>"; };
 		C74E62291A0040FD00DE5910 /* BouncesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncesTests.swift; sourceTree = "<group>"; };
 		C7A355A119B612D5000DDC72 /* BeatAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatAnimator.swift; sourceTree = "<group>"; };
@@ -131,7 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				C7AC6CEF19A800A8007107DF /* PullToRefreshExtension.swift */,
+				BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */,
 				C7AC6CF019A800A8007107DF /* PullToRefreshView.swift */,
+				BD15112B1BA520F100CADA26 /* LoadMoreView.swift */,
 				C7DA91CC19B31B7C00C4012B /* Animator.swift */,
 				C7AC6CD019A7FE6D007107DF /* Refresher.h */,
 				C7AC6CCE19A7FE6D007107DF /* Supporting Files */,
@@ -364,7 +370,9 @@
 			files = (
 				C7DA91CD19B31B7C00C4012B /* Animator.swift in Sources */,
 				C7AC6CF319A800A8007107DF /* PullToRefreshView.swift in Sources */,
+				BD15112E1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift in Sources */,
 				C7AC6CF119A800A8007107DF /* PullToRefreshExtension.swift in Sources */,
+				BD15112C1BA520F100CADA26 /* LoadMoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

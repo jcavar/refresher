@@ -92,3 +92,32 @@ class Animator: PullToRefreshViewDelegate {
         }
     }
 }
+
+extension Animator: LoadMoreViewDelegate {
+    
+    func loadMoreAnimationDidStart(view: LoadMoreView) {
+        animatorView.activityIndicatorView.startAnimating()
+        animatorView.titleLabel.text = "Loading"
+    }
+    
+    func loadMoreAnimationDidEnd(view: LoadMoreView) {
+        animatorView.activityIndicatorView.stopAnimating()
+        animatorView.titleLabel.text = ""
+    }
+    
+    func loadMore(view: LoadMoreView, progressDidChange progress: CGFloat) {
+        
+    }
+    
+    func loadMore(view: LoadMoreView, stateDidChange state: LoadMoreViewState) {
+        switch state {
+        case .Loading:
+            animatorView.titleLabel.text = "Loading"
+        case .ScrollToLoadMore:
+            animatorView.titleLabel.text = "Scroll to load more"
+        case .ReleaseToLoadMore:
+            animatorView.titleLabel.text = "Release to load more"
+        }
+    }
+    
+}

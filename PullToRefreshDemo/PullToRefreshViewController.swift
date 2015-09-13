@@ -29,19 +29,22 @@ enum ExampleMode {
     case Beat
     case Pacman
     case Custom
+    case LoadMoreDefault
+    case LoadMoreCustom
 }
 
 class PullToRefreshViewController: UIViewController {
                             
     @IBOutlet weak var tableView: UITableView!
     var exampleMode = ExampleMode.Default
+    var rowsCount = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         switch exampleMode {
         case .Default:
-            tableView.addPullToRefreshWithAction {
+            tableView.addPullToRefresh {
                 NSOperationQueue().addOperationWithBlock {
                     sleep(2)
                     NSOperationQueue.mainQueue().addOperationWithBlock {
@@ -51,34 +54,56 @@ class PullToRefreshViewController: UIViewController {
             }
         case .Beat:
             let beatAnimator = BeatAnimator(frame: CGRectMake(0, 0, 320, 80))
-            tableView.addPullToRefreshWithAction({
+            tableView.addPullToRefresh(animator:beatAnimator) {
                 NSOperationQueue().addOperationWithBlock {
                     sleep(2)
                     NSOperationQueue.mainQueue().addOperationWithBlock {
                         self.tableView.stopPullToRefresh()
                     }
                 }
-            }, withAnimator: beatAnimator)
+            }
         case .Pacman:
             let pacmanAnimator = PacmanAnimator(frame: CGRectMake(0, 0, 320, 80))
-            tableView.addPullToRefreshWithAction({
+            tableView.addPullToRefresh(animator:pacmanAnimator) {
                 NSOperationQueue().addOperationWithBlock {
                     sleep(2)
                     NSOperationQueue.mainQueue().addOperationWithBlock {
                         self.tableView.stopPullToRefresh()
                     }
                 }
-            }, withAnimator: pacmanAnimator)
+            }
         case .Custom:
             if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
-                tableView.addPullToRefreshWithAction({
+                tableView.addPullToRefresh(animator:customSubview) {
                     NSOperationQueue().addOperationWithBlock {
                         sleep(2)
                         NSOperationQueue.mainQueue().addOperationWithBlock {
                             self.tableView.stopPullToRefresh()
                         }
                     }
-                }, withAnimator: customSubview)
+                }
+            }
+        case .LoadMoreDefault:
+            tableView.addLoadMore {
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopLoadMore()
+                    }
+                }
+            }
+        case .LoadMoreCustom:
+            let beatAnimator = BeatAnimator(frame: CGRectMake(0, 0, 320, 30))
+            beatAnimator.layout = .Top
+            tableView.addLoadMore(animator:beatAnimator) {
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopLoadMore()
+                        self.rowsCount += 5
+                        self.tableView.reloadData()
+                    }
+                }
             }
         }
     }
@@ -94,7 +119,7 @@ class PullToRefreshViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return self.rowsCount
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
