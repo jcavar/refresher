@@ -29,19 +29,19 @@ internal class AnimatorView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setTranslatesAutoresizingMaskIntoConstraints(false)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let activityIndicatorView: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activity.setTranslatesAutoresizingMaskIntoConstraints(false)
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         addSubview(titleLabel)
         addSubview(activityIndicatorView)
         
@@ -54,7 +54,7 @@ internal class AnimatorView: UIView {
         addConstraints([leftActivityConstraint, centerActivityConstraint, leftTitleConstraint, centerTitleConstraint])
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -91,4 +91,33 @@ class Animator: PullToRefreshViewDelegate {
             animatorView.titleLabel.text = "Release to refresh"
         }
     }
+}
+
+extension Animator: LoadMoreViewDelegate {
+    
+    func loadMoreAnimationDidStart(view: LoadMoreView) {
+        animatorView.activityIndicatorView.startAnimating()
+        animatorView.titleLabel.text = "Loading"
+    }
+    
+    func loadMoreAnimationDidEnd(view: LoadMoreView) {
+        animatorView.activityIndicatorView.stopAnimating()
+        animatorView.titleLabel.text = ""
+    }
+    
+    func loadMore(view: LoadMoreView, progressDidChange progress: CGFloat) {
+        
+    }
+    
+    func loadMore(view: LoadMoreView, stateDidChange state: LoadMoreViewState) {
+        switch state {
+        case .Loading:
+            animatorView.titleLabel.text = "Loading"
+        case .ScrollToLoadMore:
+            animatorView.titleLabel.text = "Scroll to load more"
+        case .ReleaseToLoadMore:
+            animatorView.titleLabel.text = "Release to load more"
+        }
+    }
+    
 }

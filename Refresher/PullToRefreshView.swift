@@ -93,14 +93,14 @@ public class PullToRefreshView: UIView {
         self.autoresizingMask = .FlexibleWidth
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.animator = Animator(frame: CGRectZero)
         super.init(coder: aDecoder)
         // Currently it is not supported to load view from nib
     }
     
     deinit {
-        var scrollView = superview as? UIScrollView
+        let scrollView = superview as? UIScrollView
         scrollView?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
     }
     
@@ -119,11 +119,11 @@ public class PullToRefreshView: UIView {
     
     //MARK: KVO methods
 
-    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
                 if keyPath == ContentOffsetKeyPath {
-                    var offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
+                    let offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView.dragging == false && loading == false) {
                             loading = true
@@ -151,14 +151,14 @@ public class PullToRefreshView: UIView {
     //MARK: PullToRefreshView methods
 
     private func startAnimating() {
-        var scrollView = superview as! UIScrollView
+        let scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
         
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
-        UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
         }, completion: {finished in
@@ -169,7 +169,7 @@ public class PullToRefreshView: UIView {
     
     private func stopAnimating() {
         self.animator.pullToRefreshAnimationDidEnd(self)
-        var scrollView = superview as! UIScrollView
+        let scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue
         UIView.animateWithDuration(0.3, animations: {
             scrollView.contentInset = self.scrollViewInsetsDefaultValue

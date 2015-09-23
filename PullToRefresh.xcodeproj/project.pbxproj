@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BD15112C1BA520F100CADA26 /* LoadMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15112B1BA520F100CADA26 /* LoadMoreView.swift */; };
+		BD15112E1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */; };
 		C74E62281A003E3200DE5910 /* FrameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74E62271A003E3200DE5910 /* FrameTests.swift */; };
 		C74E622A1A0040FD00DE5910 /* BouncesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74E62291A0040FD00DE5910 /* BouncesTests.swift */; };
 		C7A355A219B612D5000DDC72 /* BeatAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A355A119B612D5000DDC72 /* BeatAnimator.swift */; };
@@ -69,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BD15112B1BA520F100CADA26 /* LoadMoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreView.swift; sourceTree = "<group>"; };
+		BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollToLoadMoreExtension.swift; sourceTree = "<group>"; };
 		C74E62271A003E3200DE5910 /* FrameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameTests.swift; sourceTree = "<group>"; };
 		C74E62291A0040FD00DE5910 /* BouncesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BouncesTests.swift; sourceTree = "<group>"; };
 		C7A355A119B612D5000DDC72 /* BeatAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatAnimator.swift; sourceTree = "<group>"; };
@@ -131,7 +135,9 @@
 			isa = PBXGroup;
 			children = (
 				C7AC6CEF19A800A8007107DF /* PullToRefreshExtension.swift */,
+				BD15112D1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift */,
 				C7AC6CF019A800A8007107DF /* PullToRefreshView.swift */,
+				BD15112B1BA520F100CADA26 /* LoadMoreView.swift */,
 				C7DA91CC19B31B7C00C4012B /* Animator.swift */,
 				C7AC6CD019A7FE6D007107DF /* Refresher.h */,
 				C7AC6CCE19A7FE6D007107DF /* Supporting Files */,
@@ -295,7 +301,9 @@
 		C7D1CF87199BB3C8009FD485 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Josip Cavar";
 				TargetAttributes = {
 					C7AC6CCB19A7FE6D007107DF = {
@@ -364,7 +372,9 @@
 			files = (
 				C7DA91CD19B31B7C00C4012B /* Animator.swift in Sources */,
 				C7AC6CF319A800A8007107DF /* PullToRefreshView.swift in Sources */,
+				BD15112E1BA5286C00CADA26 /* ScrollToLoadMoreExtension.swift in Sources */,
 				C7AC6CF119A800A8007107DF /* PullToRefreshExtension.swift in Sources */,
+				BD15112C1BA520F100CADA26 /* LoadMoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +452,7 @@
 				INFOPLIST_FILE = Refresher/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -462,6 +473,7 @@
 				INFOPLIST_FILE = Refresher/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -482,6 +494,7 @@
 				);
 				INFOPLIST_FILE = RefresherTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PullToRefresh.app/PullToRefresh";
 			};
@@ -496,6 +509,7 @@
 				);
 				INFOPLIST_FILE = RefresherTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PullToRefresh.app/PullToRefresh";
 			};
@@ -521,6 +535,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -584,10 +599,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/PullToRefreshDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -596,10 +611,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "$(SRCROOT)/PullToRefreshDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "JCA.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

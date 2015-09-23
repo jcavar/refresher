@@ -37,6 +37,14 @@ class ChooseModeViewController: UIViewController {
         showControllerWithMode(.Custom)
     }
     
+    @IBAction func loadMoreDefaultAction(sender: AnyObject) {
+        showControllerWithMode(.LoadMoreDefault)
+    }
+    
+    @IBAction func loadMoreCustomAction(sender: AnyObject) {
+        showControllerWithMode(.LoadMoreCustom)
+    }
+    
     func showControllerWithMode(mode: ExampleMode) {
         if let pullToRefreshViewControler = self.storyboard?.instantiateViewControllerWithIdentifier("PullToRefreshViewController") as? PullToRefreshViewController {
             pullToRefreshViewControler.exampleMode = mode

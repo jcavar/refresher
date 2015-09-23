@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Refresher"
-  s.version      = "0.2.0"
+  s.version      = "0.3.0"
   s.summary      = "Pull to refresh in Swift"
 
   s.description  = <<-DESC
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
 
-  s.source       = { :git => "https://github.com/jcavar/refresher.git", :tag => "0.2.0" }
+  s.source       = { :git => "https://github.com/jcavar/refresher.git", :tag => "0.3.0" }
 
   s.source_files  = "Refresher/*.swift"
 
