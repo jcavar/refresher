@@ -23,7 +23,7 @@ extension UIScrollView {
     }
     
     // If you want to add pull to refresh functionality to your UIScrollView just call this method and pass action closure you want to execute while pull to refresh is animating. If you want to stop pull to refresh you must do that manually calling stopPullToRefreshView methods on your scroll view
-    public func addLoadMore(#action:(() -> ())) {
+    public func addLoadMore(action action:(() -> ())) {
         let y = contentSize.height + contentInset.bottom + contentInset.top
         let loadMoreView = LoadMoreView(action: action, frame: CGRectMake(0, y, self.frame.size.width, scrollToLoadMoreDefaultHeight))
         loadMoreView.tag = scrollToLoadMoreTag
@@ -32,7 +32,7 @@ extension UIScrollView {
     }
     
     // If you want to use your custom animation and custom subview when pull to refresh is animating, you should call this method and pass your animator and view objects.
-    public func addLoadMore(#animator: LoadMoreViewDelegate, subview: UIView, action:(() -> ())) {
+    public func addLoadMore(animator animator: LoadMoreViewDelegate, subview: UIView, action:(() -> ())) {
         let height = subview.frame.height
         let y = contentSize.height + contentInset.bottom + contentInset.top
         let loadMoreView = LoadMoreView(action: action, frame: CGRectMake(0, y, self.frame.size.width, height), animator: animator, subview: subview)
@@ -42,7 +42,7 @@ extension UIScrollView {
     }
     
     //
-    public func addLoadMore<T: UIView where T: LoadMoreViewDelegate>(#animator: T, action:(() -> ())) {
+    public func addLoadMore<T: UIView where T: LoadMoreViewDelegate>(animator animator: T, action:(() -> ())) {
         let height = animator.frame.height
         let y = contentSize.height + contentInset.bottom + contentInset.top
         let loadMoreView = LoadMoreView(action: action, frame: CGRectMake(0, y, self.frame.size.width, height), animator: animator, subview: animator)

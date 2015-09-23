@@ -29,19 +29,19 @@ internal class AnimatorView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.setTranslatesAutoresizingMaskIntoConstraints(false)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let activityIndicatorView: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        activity.setTranslatesAutoresizingMaskIntoConstraints(false)
+        activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight
+        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         addSubview(titleLabel)
         addSubview(activityIndicatorView)
         
@@ -54,7 +54,7 @@ internal class AnimatorView: UIView {
         addConstraints([leftActivityConstraint, centerActivityConstraint, leftTitleConstraint, centerTitleConstraint])
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

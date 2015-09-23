@@ -73,7 +73,7 @@ public class LoadMoreView: UIView {
         self.autoresizingMask = .FlexibleWidth
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.animator = Animator(frame: CGRectZero)
         super.init(coder: aDecoder)
         // Currently it is not supported to load view from nib
@@ -81,7 +81,7 @@ public class LoadMoreView: UIView {
     }
     
     deinit {
-        var scrollView = superview as? UIScrollView
+        let scrollView = superview as? UIScrollView
         scrollView?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &LoadMoreKVOContext)
     }
     
@@ -106,7 +106,7 @@ public class LoadMoreView: UIView {
     
     //MARK: KVO methods
     
-    public override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<()>) {
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (context == &LoadMoreKVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
                 if keyPath == ContentOffsetKeyPath {
@@ -120,7 +120,7 @@ public class LoadMoreView: UIView {
         }
     }
     
-    func processOffsetChange(#scrollView: UIScrollView) {
+    func processOffsetChange(scrollView scrollView: UIScrollView) {
 
         var contentHeight:CGFloat = 0
         if let collectionView = scrollView as? UICollectionView {
@@ -154,7 +154,7 @@ public class LoadMoreView: UIView {
 
     }
 
-    func processContentChange(#scrollView: UIScrollView) {
+    func processContentChange(scrollView scrollView: UIScrollView) {
         // change contentSize
         if scrollView.contentSize.height == 0 {
             frame.origin.y = scrollView.frame.size.height
@@ -176,7 +176,7 @@ public class LoadMoreView: UIView {
                 frame.size.height
             
             scrollView.bounces = false
-            UIView.animateWithDuration(0.3, delay: 0, options:nil, animations: {
+            UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
                 scrollView.contentInset = insets
                 }, completion: {finished in
                     self.animator.loadMoreAnimationDidStart(self)
