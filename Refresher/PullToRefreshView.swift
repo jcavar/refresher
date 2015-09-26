@@ -55,10 +55,12 @@ public class PullToRefreshView: UIView {
     internal var loading: Bool = false {
         
         didSet {
-            if loading {
-                startAnimating()
-            } else {
-                stopAnimating()
+            if loading != oldValue {
+                if loading {
+                    startAnimating()
+                } else {
+                    stopAnimating()
+                }
             }
         }
     }
