@@ -98,7 +98,7 @@ class PullToRefreshViewController: UIViewController {
     }
     
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
         cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
     }
