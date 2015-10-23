@@ -11,6 +11,7 @@ import UIKit
 class ConnectionLostViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var rowsCount = 20
+    var showCustomView = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,17 @@ class ConnectionLostViewController: UIViewController {
             }
         }
         
-        tableView.addReachability { status in
-            print("reachability changed \(status)")
+        
+        if showCustomView {
+            if let customSubview = NSBundle.mainBundle().loadNibNamed("NoConnectionCustomView", owner: self, options: nil).first as? UIView {
+                tableView.addReachabilityView(customSubview) { status in
+                    print("reachability changed with custom view \(status)")
+                }
+            }
+        } else  {
+            tableView.addReachability { status in
+                print("reachability changed \(status)")
+            }
         }
         
         if let rv = tableView.сonnectionLostView {

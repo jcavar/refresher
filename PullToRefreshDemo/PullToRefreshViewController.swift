@@ -142,5 +142,6 @@ class PullToRefreshViewController: UIViewController {
         cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
     }
+    
 }
 

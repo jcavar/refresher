@@ -55,4 +55,13 @@ class ChooseModeViewController: UIViewController {
             navigationController?.pushViewController(pullToRefreshViewControler, animated: true)
         }
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "reachabilityCustom" {
+            if let vc = segue.destinationViewController as? ConnectionLostViewController {
+                vc.showCustomView = true
+            }
+        }
+    }
+
 }

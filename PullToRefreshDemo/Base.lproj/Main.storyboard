@@ -66,8 +66,8 @@
                                     <action selector="customAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="LfN-aH-EiW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5G-X9-Qyf">
-                                <rect key="frame" x="136" y="58" width="50" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5G-X9-Qyf">
+                                <rect key="frame" x="135" y="58" width="50" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Default">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,8 +76,8 @@
                                     <action selector="defaultAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="vuF-tC-pFA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCg-x5-zgx">
-                                <rect key="frame" x="98" y="210" width="126" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCg-x5-zgx">
+                                <rect key="frame" x="97" y="210" width="126" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Load More Default">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,14 +96,24 @@
                                     <action selector="loadMoreCustomAction:" destination="RFH-zq-9gR" eventType="touchUpInside" id="3FR-t0-lDM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrt-wW-uCP">
-                                <rect key="frame" x="119" y="286" width="84" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xrt-wW-uCP">
+                                <rect key="frame" x="118" y="286" width="84" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Reachability">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="LDy-G3-cXq" kind="push" id="4Yg-Vm-fkd"/>
+                                    <segue destination="LDy-G3-cXq" kind="push" identifier="reachability" id="4Yg-Vm-fkd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZIN-r5-So9">
+                                <rect key="frame" x="90" y="317" width="141" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Reachability Custom">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="LDy-G3-cXq" kind="push" identifier="reachabilityCustom" id="ime-OR-rAF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -118,8 +128,10 @@
                             <constraint firstAttribute="centerX" secondItem="Bnx-XC-RaR" secondAttribute="centerX" id="b7p-mx-ov2"/>
                             <constraint firstItem="aCg-x5-zgx" firstAttribute="top" secondItem="Bnx-XC-RaR" secondAttribute="bottom" constant="8" id="bRm-Bh-fMh"/>
                             <constraint firstItem="8ef-eQ-bwJ" firstAttribute="top" secondItem="h5G-X9-Qyf" secondAttribute="bottom" constant="8" id="d05-jf-IhB"/>
+                            <constraint firstItem="ZIN-r5-So9" firstAttribute="centerX" secondItem="SeT-4b-Nhw" secondAttribute="centerX" id="dtd-LV-tVO"/>
                             <constraint firstItem="h5G-X9-Qyf" firstAttribute="top" secondItem="Jwa-dH-WnZ" secondAttribute="bottom" constant="58" id="eMs-2s-g1f"/>
                             <constraint firstAttribute="centerX" secondItem="HuH-hP-K4y" secondAttribute="centerX" id="hNP-xy-QZA"/>
+                            <constraint firstItem="ZIN-r5-So9" firstAttribute="top" secondItem="xrt-wW-uCP" secondAttribute="bottom" constant="1" id="kDi-45-ijg"/>
                             <constraint firstItem="Bnx-XC-RaR" firstAttribute="top" secondItem="Phb-fN-T5w" secondAttribute="bottom" constant="8" id="mTB-9E-ci7"/>
                             <constraint firstItem="xrt-wW-uCP" firstAttribute="centerX" secondItem="SeT-4b-Nhw" secondAttribute="centerX" id="rx5-2y-ccz"/>
                             <constraint firstItem="Phb-fN-T5w" firstAttribute="top" secondItem="8ef-eQ-bwJ" secondAttribute="bottom" constant="8" id="u0s-Uu-qxY"/>
@@ -243,4 +255,7 @@
             <point key="canvasLocation" x="124" y="59"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ime-OR-rAF"/>
+    </inferredMetricsTieBreakers>
 </document>
