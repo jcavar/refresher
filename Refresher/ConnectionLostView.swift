@@ -12,6 +12,7 @@ import ReachabilitySwift
 
 private var KVOContext = "NoConnectionKVOContext"
 private let ContentOffsetKeyPath = "contentOffset"
+private let ContentSizeKeyPath = "contentSize"
 
 internal class ConnectionLostDefaultSubview: UIView {
     
@@ -120,6 +121,7 @@ public class ConnectionLostView: UIView {
         if stickMode == true {
             superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
         }
+        superview?.removeObserver(self, forKeyPath: ContentSizeKeyPath, context: &KVOContext)
         reachability?.stopNotifier()
     }
 
@@ -130,12 +132,14 @@ public class ConnectionLostView: UIView {
         if stickMode == true {
             superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
         }
+        superview?.removeObserver(self, forKeyPath: ContentSizeKeyPath, context: &KVOContext)
         if let scrollView = newSuperview as? UIScrollView {
             scrollViewBouncesDefaultValue = scrollView.bounces
             scrollViewInsetsDefaultValue = scrollView.contentInset
             if stickMode == true {
                 scrollView.addObserver(self, forKeyPath: ContentOffsetKeyPath, options: .Initial, context: &KVOContext)
             }
+            scrollView.addObserver(self, forKeyPath: ContentSizeKeyPath, options: .Initial, context: &KVOContext)
         }
     }
     
@@ -144,7 +148,10 @@ public class ConnectionLostView: UIView {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
                 if keyPath == ContentOffsetKeyPath {
                     self.updateStickyViewPosition(scrollView)
+                } else  if keyPath == ContentSizeKeyPath {
+                    self.frame.size.width = scrollView.contentSize.width
                 }
+
             }
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
