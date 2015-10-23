@@ -31,6 +31,7 @@ enum ExampleMode {
     case Custom
     case LoadMoreDefault
     case LoadMoreCustom
+    case InternetConnectionLost
 }
 
 class PullToRefreshViewController: UIViewController {
@@ -105,6 +106,20 @@ class PullToRefreshViewController: UIViewController {
                     }
                 }
             }
+        case .InternetConnectionLost:
+            tableView.addLoadMore {
+                NSOperationQueue().addOperationWithBlock {
+                    sleep(2)
+                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                        self.tableView.stopLoadMore()
+                    }
+                }
+            }
+            
+            tableView.addReachability { status in
+                print("reachability changed \(status)")
+            }
+            
         }
     }
     

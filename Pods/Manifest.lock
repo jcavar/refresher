@@ -1,0 +1,17 @@
+PODS:
+  - ReachabilitySwift (2.1)
+  - Refresher (0.3.0):
+    - ReachabilitySwift
+
+DEPENDENCIES:
+  - Refresher (from `.`)
+
+EXTERNAL SOURCES:
+  Refresher:
+    :path: .
+
+SPEC CHECKSUMS:
+  ReachabilitySwift: 99bb7acceebb90b2048b4a8fd6539be96454dcb2
+  Refresher: 3a9375207134f3f26efcb4fc25c8906286cfe610
+
+COCOAPODS: 0.39.0

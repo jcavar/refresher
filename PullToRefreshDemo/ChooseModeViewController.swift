@@ -45,6 +45,10 @@ class ChooseModeViewController: UIViewController {
         showControllerWithMode(.LoadMoreCustom)
     }
     
+    @IBAction func reachabilityAction(sender: AnyObject) {
+        showControllerWithMode(.InternetConnectionLost)
+    }
+    
     func showControllerWithMode(mode: ExampleMode) {
         if let pullToRefreshViewControler = self.storyboard?.instantiateViewControllerWithIdentifier("PullToRefreshViewController") as? PullToRefreshViewController {
             pullToRefreshViewControler.exampleMode = mode

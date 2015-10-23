@@ -52,7 +52,7 @@ extension UIScrollView {
         addSubview(pullToRefreshView)
     }
     
-    //
+    //Add custom view with animator, where this custom view is animator itself
     public func addPullToRefresh<T: UIView where T: PullToRefreshViewDelegate>(animator animator: T, action:(() -> ())) {
         let height = animator.frame.height
         let pullToRefreshView = PullToRefreshView(action: action, frame: CGRectMake(0, -height, self.frame.size.width, height), animator: animator, subview: animator)

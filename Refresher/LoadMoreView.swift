@@ -38,9 +38,9 @@ public class LoadMoreView: UIView {
     internal var loading: Bool = false {
         didSet {
             if loading {
-                startAnimating()
+                startAnimating(true)
             } else {
-                stopAnimating()
+                stopAnimating(true)
             }
         }
     }
@@ -83,6 +83,7 @@ public class LoadMoreView: UIView {
     deinit {
         let scrollView = superview as? UIScrollView
         scrollView?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &LoadMoreKVOContext)
+        scrollView?.removeObserver(self, forKeyPath: ContentSizeKeyPath, context: &LoadMoreKVOContext)
     }
     
 
@@ -168,30 +169,42 @@ public class LoadMoreView: UIView {
     
     //MARK: ScrollToLoadMore methods
     
-    private func startAnimating() {
+    internal func startAnimating(animated:Bool) {
         if let scrollView = superview as? UIScrollView {
             var insets = scrollView.contentInset
             insets.bottom += scrollView.contentSize.height <  scrollView.frame.size.height ?
                 scrollView.frame.size.height - scrollView.contentSize.height + frame.size.height:
                 frame.size.height
             
+            self.scrollViewBouncesDefaultValue = scrollView.bounces
             scrollView.bounces = false
-            UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
-                scrollView.contentInset = insets
+            if animated == true {
+                UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
+                    scrollView.contentInset = insets
                 }, completion: {finished in
                     self.animator.loadMoreAnimationDidStart(self)
                     self.action()
-            })
+                })
+            } else {
+                scrollView.contentInset = insets
+                self.animator.loadMoreAnimationDidStart(self)
+                self.action()
+            }
         }
     }
     
-    private func stopAnimating() {
+    internal func stopAnimating(animated:Bool) {
         self.animator.loadMoreAnimationDidEnd(self)
         if let scrollView = superview as? UIScrollView {
             scrollView.bounces = self.scrollViewBouncesDefaultValue
-            UIView.animateWithDuration(0.3, animations: {
+            if animated == true {
+                UIView.animateWithDuration(0.3, animations: {
+                    scrollView.contentInset = self.scrollViewInsetsDefaultValue
+                }) { finished in
+                    self.animator.loadMore(self, progressDidChange: 0.0)
+                }
+            } else {
                 scrollView.contentInset = self.scrollViewInsetsDefaultValue
-            }) { finished in
                 self.animator.loadMore(self, progressDidChange: 0.0)
             }
         }

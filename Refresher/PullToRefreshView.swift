@@ -56,9 +56,9 @@ public class PullToRefreshView: UIView {
         
         didSet {
             if loading {
-                startAnimating()
+                startAnimating(true)
             } else {
-                stopAnimating()
+                stopAnimating(true)
             }
         }
     }
@@ -150,7 +150,7 @@ public class PullToRefreshView: UIView {
     
     //MARK: PullToRefreshView methods
 
-    private func startAnimating() {
+    internal func startAnimating(animated:Bool) {
         let scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
@@ -158,23 +158,41 @@ public class PullToRefreshView: UIView {
         // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
-        UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
+        
+        if animated == true {
+            UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
+                scrollView.contentInset = insets
+                scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
+            }, completion: {finished in
+                self.animator.pullToRefreshAnimationDidStart(self)
+                self.action()
+            })
+        } else {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -insets.top)
-        }, completion: {finished in
             self.animator.pullToRefreshAnimationDidStart(self)
             self.action()
-        })
+        }
     }
     
-    private func stopAnimating() {
+    internal func stopAnimating(animated:Bool) {
         self.animator.pullToRefreshAnimationDidEnd(self)
         let scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue
-        UIView.animateWithDuration(0.3, animations: {
+        
+        if animated == true {
+            UIView.animateWithDuration(0.3, animations: {
+                scrollView.contentInset = self.scrollViewInsetsDefaultValue
+            }) { finished in
+                self.animator.pullToRefresh(self, progressDidChange: 0)
+            }
+        } else {
             scrollView.contentInset = self.scrollViewInsetsDefaultValue
-        }) { finished in
             self.animator.pullToRefresh(self, progressDidChange: 0)
         }
     }
+    
+
+    
+    
 }
