@@ -14,9 +14,28 @@ class ConnectionLostViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.addPullToRefresh {
+            NSOperationQueue().addOperationWithBlock { [weak self] in
+                sleep(20)
+                NSOperationQueue.mainQueue().addOperationWithBlock {
+                    print("Pull to refresh timeout fire")
+                    self?.tableView.stopPullToRefresh()
+                }
+            }
+        }
+        
         tableView.addReachability { status in
             print("reachability changed \(status)")
         }
+        
+        if let rv = tableView.сonnectionLostView {
+            rv.stickMode = true
+            rv.disableBouncesOnShow = true
+        }
+
+
+
     }
 
     override func didReceiveMemoryWarning() {

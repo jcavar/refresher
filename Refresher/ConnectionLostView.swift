@@ -32,7 +32,7 @@ internal class ConnectionLostDefaultSubview: UIView {
         backgroundColor = UIColor(red: 1.0, green: 0.231, blue: 0.188, alpha: 1)
 
         let leftTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 16)
-        let rightTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: 16)
+        let rightTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: self, attribute: .Right, multiplier: 1, constant: -16)
         let centerTitleConstraint = NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: titleLabel, attribute: .CenterY, multiplier: 1, constant: 0)
         addConstraints([rightTitleConstraint, leftTitleConstraint, centerTitleConstraint])
     }
@@ -158,7 +158,11 @@ public class ConnectionLostView: UIView {
     
     internal func becomeReachable() {
         //always happends in main thread
+        
         if let scrollView = superview as? UIScrollView {
+            scrollView.pullToRefreshView?.disabled = false
+            scrollView.loadMoreView?.disabled = false
+
             scrollViewBouncesDefaultValue = scrollView.bounces
             UIView.animateWithDuration(0.3, animations: {
                 scrollView.contentInset = self.scrollViewInsetsDefaultValue
@@ -173,13 +177,9 @@ public class ConnectionLostView: UIView {
     internal func becomeUnreachable() {
         //always happends in main thread
         if let scrollView = superview as? UIScrollView {
-            if let pullToRefreshView  = scrollView.pullToRefreshView {
-                pullToRefreshView.stopAnimating(false)
-            }
-            if let loadMoreView = scrollView.loadMoreView {
-                loadMoreView.startAnimating(false)
-            }
-            
+            scrollView.pullToRefreshView?.disabled = true
+            scrollView.loadMoreView?.disabled = true
+
             var insets = scrollView.contentInset
             insets.top += self.frame.size.height
             

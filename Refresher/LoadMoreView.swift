@@ -35,6 +35,19 @@ public class LoadMoreView: UIView {
     
     private var previousOffset: CGFloat = 0
     
+    public var disabled = false {
+        didSet {
+            hidden = disabled
+            if disabled == true {
+                if loading == true {
+                    loading = false
+                }
+                animator.loadMore(self, stateDidChange: .ScrollToLoadMore)
+                animator.loadMore(self, progressDidChange: 0)
+            }
+        }
+    }
+    
     internal var loading: Bool = false {
         didSet {
             if loading {
@@ -123,6 +136,8 @@ public class LoadMoreView: UIView {
     
     func processOffsetChange(scrollView scrollView: UIScrollView) {
 
+        if disabled == true { return }
+        
         var contentHeight:CGFloat = 0
         if let collectionView = scrollView as? UICollectionView {
             contentHeight = collectionView.collectionViewLayout.collectionViewContentSize().height
@@ -156,7 +171,9 @@ public class LoadMoreView: UIView {
     }
 
     func processContentChange(scrollView scrollView: UIScrollView) {
+        
         // change contentSize
+        
         if scrollView.contentSize.height == 0 {
             frame.origin.y = scrollView.frame.size.height
         } else if scrollView.contentSize.height <  scrollView.frame.size.height {

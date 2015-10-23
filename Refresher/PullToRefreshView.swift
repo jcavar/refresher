@@ -52,6 +52,21 @@ public class PullToRefreshView: UIView {
 
     private var previousOffset: CGFloat = 0
 
+    
+    public var disabled = false {
+        didSet {
+            hidden = disabled
+            stopAnimating(false)
+            if disabled == true {
+                if loading == true {
+                    loading = false
+                }
+                animator.pullToRefresh(self, stateDidChange: .PullToRefresh)
+                animator.pullToRefresh(self, progressDidChange: 0)
+            }
+        }
+    }
+
     internal var loading: Bool = false {
         
         didSet {
@@ -122,21 +137,21 @@ public class PullToRefreshView: UIView {
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
-                if keyPath == ContentOffsetKeyPath {
+                if keyPath == ContentOffsetKeyPath && disabled == false  {
                     let offsetWithoutInsets = previousOffset + scrollViewInsetsDefaultValue.top
                     if (offsetWithoutInsets < -self.frame.size.height) {
                         if (scrollView.dragging == false && loading == false) {
                             loading = true
                         } else if (loading) {
-                            self.animator.pullToRefresh(self, stateDidChange: .Loading)
+                            animator.pullToRefresh(self, stateDidChange: .Loading)
                         } else {
-                            self.animator.pullToRefresh(self, stateDidChange: .ReleaseToRefresh)
+                            animator.pullToRefresh(self, stateDidChange: .ReleaseToRefresh)
                             animator.pullToRefresh(self, progressDidChange: -offsetWithoutInsets / self.frame.size.height)
                         }
                     } else if (loading) {
-                        self.animator.pullToRefresh(self, stateDidChange: .Loading)
+                        animator.pullToRefresh(self, stateDidChange: .Loading)
                     } else if (offsetWithoutInsets < 0) {
-                        self.animator.pullToRefresh(self, stateDidChange: .PullToRefresh)
+                        animator.pullToRefresh(self, stateDidChange: .PullToRefresh)
                         animator.pullToRefresh(self, progressDidChange: -offsetWithoutInsets / self.frame.size.height)
                     }
                     previousOffset = scrollView.contentOffset.y
