@@ -41,4 +41,11 @@ class ConnectionLostViewController: UIViewController {
     @IBAction func hideView(sender: AnyObject) {
         tableView.hideReachabilityView()
     }
+    
+    @IBAction func changeStickyMode(sender: AnyObject) {
+        if let rv = tableView.сonnectionLostView {
+            rv.stickMode = !rv.stickMode
+        }
+    }
+    
 }

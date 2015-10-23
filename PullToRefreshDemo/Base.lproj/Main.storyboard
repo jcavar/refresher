@@ -153,16 +153,24 @@
                                     <outlet property="delegate" destination="LDy-G3-cXq" id="9pg-CA-DwB"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87W-aW-Mxf">
-                                <rect key="frame" x="261" y="466" width="32" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87W-aW-Mxf">
+                                <rect key="frame" x="272" y="466" width="32" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Hide"/>
                                 <connections>
                                     <action selector="hideView:" destination="LDy-G3-cXq" eventType="touchUpInside" id="85u-20-avH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AJ-23-Enm">
-                                <rect key="frame" x="24" y="466" width="38" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ZK-To-BKk">
+                                <rect key="frame" x="114" y="466" width="140" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Sticky mode change"/>
+                                <connections>
+                                    <action selector="changeStickyMode:" destination="LDy-G3-cXq" eventType="touchUpInside" id="UQ7-y7-7KP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AJ-23-Enm">
+                                <rect key="frame" x="16" y="466" width="38" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Show"/>
                                 <connections>
@@ -174,12 +182,14 @@
                         <color key="backgroundColor" red="0.98823529409999999" green="0.4823529412" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="tYj-dR-6ly" firstAttribute="leading" secondItem="OSL-TE-Pqe" secondAttribute="leadingMargin" constant="-20" id="150-2z-ch5"/>
+                            <constraint firstItem="ifI-Id-dHm" firstAttribute="top" secondItem="1ZK-To-BKk" secondAttribute="bottom" constant="8" id="2W1-uq-hYJ"/>
                             <constraint firstItem="ifI-Id-dHm" firstAttribute="top" secondItem="87W-aW-Mxf" secondAttribute="bottom" constant="8" id="Ekq-Ys-kQH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tYj-dR-6ly" secondAttribute="trailing" constant="-20" id="Jzb-Zo-RHv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="6AJ-23-Enm" secondAttribute="leading" id="XKM-HN-Dth"/>
                             <constraint firstItem="tYj-dR-6ly" firstAttribute="top" secondItem="yFq-gJ-7lV" secondAttribute="bottom" id="Ygk-Vd-z29"/>
                             <constraint firstItem="ifI-Id-dHm" firstAttribute="top" secondItem="tYj-dR-6ly" secondAttribute="bottom" constant="44" id="dvw-Z6-dtr"/>
                             <constraint firstItem="ifI-Id-dHm" firstAttribute="top" secondItem="6AJ-23-Enm" secondAttribute="bottom" constant="8" id="fa9-WU-V0e"/>
+                            <constraint firstItem="87W-aW-Mxf" firstAttribute="leading" secondItem="1ZK-To-BKk" secondAttribute="trailing" constant="18" id="i2x-Np-WD3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="87W-aW-Mxf" secondAttribute="trailing" id="xhm-kN-xWd"/>
                         </constraints>
                     </view>

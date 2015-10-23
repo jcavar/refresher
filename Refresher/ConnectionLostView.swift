@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import ReachabilitySwift
 
+private var KVOContext = "NoConnectionKVOContext"
+private let ContentOffsetKeyPath = "contentOffset"
 
 internal class ConnectionLostDefaultSubview: UIView {
     
@@ -41,11 +43,21 @@ internal class ConnectionLostDefaultSubview: UIView {
 }
 
 public class ConnectionLostView: UIView {
+    
     private var connectionStateChanged: ((newStatus: Reachability.NetworkStatus) -> ()) = { status in }
     private var scrollViewBouncesDefaultValue: Bool = false
     private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsetsZero
-    public var disableBouncesOnShow:Bool = false
     private let reachability: Reachability?
+    
+    //When internet is unreachable, siable bounces to block load more and pull to refresh
+    public var disableBouncesOnShow:Bool = true
+    //Stick mode put view not in the inset area, but stick on top of scrollView
+    public var stickMode:Bool = false {
+        didSet {
+            changeStickMode()
+        }
+    }
+
     
 
     
@@ -105,6 +117,9 @@ public class ConnectionLostView: UIView {
     }
     
     deinit {
+        if stickMode == true {
+            superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
+        }
         reachability?.stopNotifier()
     }
 
@@ -112,11 +127,32 @@ public class ConnectionLostView: UIView {
     
     //MARK: UIView methods
     public override func willMoveToSuperview(newSuperview: UIView!) {
+        if stickMode == true {
+            superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
+        }
         if let scrollView = newSuperview as? UIScrollView {
             scrollViewBouncesDefaultValue = scrollView.bounces
             scrollViewInsetsDefaultValue = scrollView.contentInset
+            if stickMode == true {
+                scrollView.addObserver(self, forKeyPath: ContentOffsetKeyPath, options: .Initial, context: &KVOContext)
+            }
         }
     }
+    
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
+        if (context == &KVOContext) {
+            if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
+                if keyPath == ContentOffsetKeyPath {
+                    self.updateStickyViewPosition(scrollView)
+                }
+            }
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
+    
+    
+    
 
     //MARK: Reachability methods
     
@@ -147,16 +183,49 @@ public class ConnectionLostView: UIView {
             var insets = scrollView.contentInset
             insets.top += self.frame.size.height
             
-            scrollView.bounces = false
+            scrollView.bounces = disableBouncesOnShow
             self.hidden = false
             self.alpha = 0.0
             UIView.animateWithDuration(0.3, delay: 0, options:[], animations: {
                 scrollView.contentInset = insets
                 self.alpha = 1.0
-                scrollView.contentOffset = CGPoint(x: 0, y: -insets.top)
+                if self.stickMode == false {
+                    scrollView.contentOffset = CGPoint(x: 0, y: -insets.top)
+                }
             }, completion: {finished in
+                if self.stickMode == true {
+                    self.updateStickyViewPosition(scrollView)
+                }
                 self.connectionStateChanged(newStatus: .NotReachable)
             })
+        }
+    }
+    
+    
+    
+    //MARK: Private methods
+    
+    private func updateStickyViewPosition(scrollView:UIScrollView) {
+        self.frame.origin.y = scrollView.contentOffset.y
+    }
+    
+    private func changeStickMode() {
+        if stickMode ==  true {
+            if let scrollView = superview as? UIScrollView {
+                scrollView.addObserver(self, forKeyPath: ContentOffsetKeyPath, options: .Initial, context: &KVOContext)
+                updateStickyViewPosition(scrollView)
+                if self.hidden == false {
+                    scrollView.contentInset = self.scrollViewInsetsDefaultValue
+                }
+            }
+        } else {
+            superview?.removeObserver(self, forKeyPath: ContentOffsetKeyPath, context: &KVOContext)
+            self.frame.origin.y = -frame.size.height
+            if let scrollView = superview as? UIScrollView where self.hidden == false {
+                var insets = scrollView.contentInset
+                insets.top += self.frame.size.height
+                scrollView.contentInset = insets
+            }
         }
     }
     
