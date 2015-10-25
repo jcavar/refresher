@@ -143,6 +143,20 @@ public class ConnectionLostView: UIView {
         }
     }
     
+    
+    public override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if let reachability = reachability {
+            switch reachability.currentReachabilityStatus {
+            case .NotReachable:
+                self.becomeUnreachable()
+            default:
+                self.becomeReachable()
+            }
+        }
+    }
+    
+    
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<()>) {
         if (context == &KVOContext) {
             if let scrollView = superview as? UIScrollView where object as? NSObject == scrollView {
