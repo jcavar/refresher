@@ -168,10 +168,15 @@ public class PullToRefreshView: UIView {
     internal func startAnimating(animated:Bool) {
         let scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
-        insets.top += self.frame.size.height
+
+        if scrollView.сonnectionLostView?.hidden == true {
+            insets.top += self.frame.size.height
+            
+            // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
+            scrollView.contentOffset.y = previousOffset
+            
+        }
         
-        // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
-        scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
         
         if animated == true {
@@ -197,12 +202,16 @@ public class PullToRefreshView: UIView {
         
         if animated == true {
             UIView.animateWithDuration(0.3, animations: {
-                scrollView.contentInset = self.scrollViewInsetsDefaultValue
-            }) { finished in
-                self.animator.pullToRefresh(self, progressDidChange: 0)
+                if scrollView.сonnectionLostView?.hidden == true {
+                    scrollView.contentInset = self.scrollViewInsetsDefaultValue
+                }
+                }) { finished in
+                    self.animator.pullToRefresh(self, progressDidChange: 0)
             }
         } else {
-            scrollView.contentInset = self.scrollViewInsetsDefaultValue
+            if scrollView.сonnectionLostView?.hidden == true {
+                scrollView.contentInset = self.scrollViewInsetsDefaultValue
+            }
             self.animator.pullToRefresh(self, progressDidChange: 0)
         }
     }
