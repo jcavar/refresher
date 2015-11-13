@@ -38,10 +38,10 @@ tableView.addPullToRefreshWithAction({
 
 Required methods that your custom object need to implement are:
 
-*   `func startAnimation()` - Called when user release finger from phone and when loading actually starts. Here you need to start your animations.
-*   `func stopAnimation()` - Called when loading is over. Stop your animations here.
-*   `func changeProgress(progress: CGFloat)` - Called when user is pulling view. If you want to implement some progress like behaviour on pull this method is called.
-*   `func layoutLayers(superview: UIView)` - Called when layoutSubviews method is called. Here you want to implement layout changes and add your layers or views to view.
+*   `func pullToRefreshAnimationDidStart(view: PullToRefreshView)`- Called when user releases finger and when loading actually starts. Start your animations here.
+*   `func pullToRefreshAnimationDidEnd(view: PullToRefreshView)` - Called when animation is over. Perform any necessary after animation cleanup here.
+*   `func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat)` - Called while user is pulling scroll view. Useful if you want to implement some kind of progress like behaviour.
+*   `func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState)` - Called when `PullToRefreshView` changes its state
 
 ##Requirements
 
