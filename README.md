@@ -41,7 +41,28 @@ Required methods that your custom object need to implement are:
 *   `func pullToRefreshAnimationDidStart(view: PullToRefreshView)`- Called when user releases finger and when loading actually starts. Start your animations here.
 *   `func pullToRefreshAnimationDidEnd(view: PullToRefreshView)` - Called when animation is over. Perform any necessary after animation cleanup here.
 *   `func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat)` - Called while user is pulling scroll view. Useful if you want to implement some kind of progress like behaviour.
-*   `func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState)` - Called when `PullToRefreshView` changes its state
+*   `func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState)` - Called when `PullToRefreshView` changes its state  
+
+
+###Custom views
+
+You can use your own custom `UIView` subclass as pull to refresh view.
+
+```swift
+
+if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
+	tableView.addPullToRefreshWithAction({
+		NSOperationQueue().addOperationWithBlock {
+			sleep(2)
+			NSOperationQueue.mainQueue().addOperationWithBlock {
+				self.tableView.stopPullToRefresh()
+			}
+		}
+	}, withAnimator: customSubview)
+}
+```
+
+Your custom subclass has to conform to `PullToRefreshViewDelegate`.
 
 ##Requirements
 
