@@ -21,24 +21,24 @@ class ChooseModeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func defaultAction(sender: AnyObject) {
-        showControllerWithMode(.Default)
+    @IBAction func defaultAction(_ sender: AnyObject) {
+        showControllerWithMode(.default)
     }
 
-    @IBAction func beatAction(sender: AnyObject) {
-        showControllerWithMode(.Beat)
+    @IBAction func beatAction(_ sender: AnyObject) {
+        showControllerWithMode(.beat)
     }
     
-    @IBAction func pacmanAction(sender: AnyObject) {
-        showControllerWithMode(.Pacman)
+    @IBAction func pacmanAction(_ sender: AnyObject) {
+        showControllerWithMode(.pacman)
     }
     
-    @IBAction func customAction(sender: AnyObject) {
-        showControllerWithMode(.Custom)
+    @IBAction func customAction(_ sender: AnyObject) {
+        showControllerWithMode(.custom)
     }
     
-    func showControllerWithMode(mode: ExampleMode) {
-        if let pullToRefreshViewControler = self.storyboard?.instantiateViewControllerWithIdentifier("PullToRefreshViewController") as? PullToRefreshViewController {
+    func showControllerWithMode(_ mode: ExampleMode) {
+        if let pullToRefreshViewControler = self.storyboard?.instantiateViewController(withIdentifier: "PullToRefreshViewController") as? PullToRefreshViewController {
             pullToRefreshViewControler.exampleMode = mode
             navigationController?.pushViewController(pullToRefreshViewControler, animated: true)
         }

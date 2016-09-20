@@ -15,28 +15,28 @@ class CustomSubview: UIView, PullToRefreshViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var labelTitle: UILabel!
     
-    func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
+    func pullToRefreshAnimationDidStart(_ view: PullToRefreshView) {
         activityIndicator.startAnimating()
         labelTitle.text = "Loading"
     }
     
-    func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
+    func pullToRefreshAnimationDidEnd(_ view: PullToRefreshView) {
         activityIndicator.stopAnimating()
         labelTitle.text = ""
     }
     
-    func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
+    func pullToRefresh(_ view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
     }
     
-    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
+    func pullToRefresh(_ view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         
         switch state {
-        case .Loading:
+        case .loading:
             labelTitle.text = "Loading"
-        case .PullToRefresh:
+        case .pullToRefresh:
             labelTitle.text = "Pull to refresh"
-        case .ReleaseToRefresh:
+        case .releaseToRefresh:
             labelTitle.text = "Release to refresh"
         }
     }
