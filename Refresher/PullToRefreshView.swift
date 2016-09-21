@@ -44,13 +44,13 @@ public protocol PullToRefreshViewDelegate {
 
 open class PullToRefreshView: UIView {
     
-    fileprivate var scrollViewBouncesDefaultValue: Bool = false
-    fileprivate var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsets.zero
+    private var scrollViewBouncesDefaultValue: Bool = false
+    private var scrollViewInsetsDefaultValue: UIEdgeInsets = UIEdgeInsets.zero
 
-    fileprivate var animator: PullToRefreshViewDelegate
-    fileprivate var action: (() -> ()) = {}
+    private var animator: PullToRefreshViewDelegate
+    private var action: (() -> ()) = {}
 
-    fileprivate var previousOffset: CGFloat = 0
+    private var previousOffset: CGFloat = 0
 
     internal var loading: Bool = false {
         
@@ -152,7 +152,7 @@ open class PullToRefreshView: UIView {
     
     //MARK: PullToRefreshView methods
 
-    fileprivate func startAnimating() {
+    private func startAnimating() {
         let scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
@@ -169,7 +169,7 @@ open class PullToRefreshView: UIView {
         })
     }
     
-    fileprivate func stopAnimating() {
+    private func stopAnimating() {
         self.animator.pullToRefreshAnimationDidEnd(self)
         let scrollView = superview as! UIScrollView
         scrollView.bounces = self.scrollViewBouncesDefaultValue
