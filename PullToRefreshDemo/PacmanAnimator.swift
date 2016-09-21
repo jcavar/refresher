@@ -28,8 +28,8 @@ import UIKit
 
 class PacmanAnimator: UIView, PullToRefreshViewDelegate {
     
-    fileprivate let layerLoader = CAShapeLayer()
-    fileprivate let layerSeparator = CAShapeLayer()
+    private let layerLoader = CAShapeLayer()
+    private let layerSeparator = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
