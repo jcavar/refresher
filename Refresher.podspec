@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.author             = { 'Josip Cavar' => 'josipcavar04@gmail.com' }
   s.social_media_url   = 'http://twitter.com/josip04'
 
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
 
   s.source       = { :git => 'https://github.com/jcavar/refresher.git', :tag => s.version }
 
