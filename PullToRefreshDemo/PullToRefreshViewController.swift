@@ -25,56 +25,56 @@ import UIKit
 import Refresher
 
 enum ExampleMode {
-    case Default
-    case Beat
-    case Pacman
-    case Custom
+    case `default`
+    case beat
+    case pacman
+    case custom
 }
 
 class PullToRefreshViewController: UIViewController {
                             
     @IBOutlet weak var tableView: UITableView!
-    var exampleMode = ExampleMode.Default
+    var exampleMode = ExampleMode.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         switch exampleMode {
-        case .Default:
+        case .default:
             tableView.addPullToRefreshWithAction {
-                NSOperationQueue().addOperationWithBlock {
+                OperationQueue().addOperation {
                     sleep(2)
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    OperationQueue.main.addOperation {
                         self.tableView.stopPullToRefresh()
                     }
                 }
             }
-        case .Beat:
-            let beatAnimator = BeatAnimator(frame: CGRectMake(0, 0, 320, 80))
+        case .beat:
+            let beatAnimator = BeatAnimator(frame: CGRect(x: 0, y: 0, width: 320, height: 80))
             tableView.addPullToRefreshWithAction({
-                NSOperationQueue().addOperationWithBlock {
+                OperationQueue().addOperation {
                     sleep(2)
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    OperationQueue.main.addOperation {
                         self.tableView.stopPullToRefresh()
                     }
                 }
             }, withAnimator: beatAnimator)
-        case .Pacman:
-            let pacmanAnimator = PacmanAnimator(frame: CGRectMake(0, 0, 320, 80))
+        case .pacman:
+            let pacmanAnimator = PacmanAnimator(frame: CGRect(x: 0, y: 0, width: 320, height: 80))
             tableView.addPullToRefreshWithAction({
-                NSOperationQueue().addOperationWithBlock {
+                OperationQueue().addOperation {
                     sleep(2)
-                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                    OperationQueue.main.addOperation {
                         self.tableView.stopPullToRefresh()
                     }
                 }
             }, withAnimator: pacmanAnimator)
-        case .Custom:
-            if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner: self, options: nil).first as? CustomSubview {
+        case .custom:
+            if let customSubview = Bundle.main.loadNibNamed("CustomSubview", owner: self, options: nil)?.first as? CustomSubview {
                 tableView.addPullToRefreshWithAction({
-                    NSOperationQueue().addOperationWithBlock {
+                    OperationQueue().addOperation {
                         sleep(2)
-                        NSOperationQueue.mainQueue().addOperationWithBlock {
+                        OperationQueue.main.addOperation {
                             self.tableView.stopPullToRefresh()
                         }
                     }
@@ -83,7 +83,7 @@ class PullToRefreshViewController: UIViewController {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.startPullToRefresh()
     }
@@ -93,12 +93,12 @@ class PullToRefreshViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
-    func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
-        let cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
+    func tableView(_ tableView: UITableView!, cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
     }

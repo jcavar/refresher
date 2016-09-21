@@ -34,22 +34,22 @@ internal class AnimatorView: UIView {
     }()
     
     private let activityIndicatorView: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         addSubview(titleLabel)
         addSubview(activityIndicatorView)
         
-        let leftActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .Left, relatedBy: .Equal, toItem: self, attribute: .Left, multiplier: 1, constant: 16)
-        let centerActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0)
+        let leftActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 16)
+        let centerActivityConstraint = NSLayoutConstraint(item: activityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         
-        let leftTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: activityIndicatorView, attribute: .Right, multiplier: 1, constant: 16)
-        let centerTitleConstraint = NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: titleLabel, attribute: .CenterY, multiplier: 1, constant: 0)
+        let leftTitleConstraint = NSLayoutConstraint(item: titleLabel, attribute: .left, relatedBy: .equal, toItem: activityIndicatorView, attribute: .right, multiplier: 1, constant: 16)
+        let centerTitleConstraint = NSLayoutConstraint(item: self, attribute: .centerY, relatedBy: .equal, toItem: titleLabel, attribute: .centerY, multiplier: 1, constant: 0)
 
         addConstraints([leftActivityConstraint, centerActivityConstraint, leftTitleConstraint, centerTitleConstraint])
     }
@@ -67,27 +67,27 @@ class Animator: PullToRefreshViewDelegate {
         animatorView = AnimatorView(frame: frame)
     }
     
-    func pullToRefreshAnimationDidStart(view: PullToRefreshView) {
+    func pullToRefreshAnimationDidStart(_ view: PullToRefreshView) {
         animatorView.activityIndicatorView.startAnimating()
         animatorView.titleLabel.text = "Loading"
     }
     
-    func pullToRefreshAnimationDidEnd(view: PullToRefreshView) {
+    func pullToRefreshAnimationDidEnd(_ view: PullToRefreshView) {
         animatorView.activityIndicatorView.stopAnimating()
         animatorView.titleLabel.text = ""
     }
     
-    func pullToRefresh(view: PullToRefreshView, progressDidChange progress: CGFloat) {
+    func pullToRefresh(_ view: PullToRefreshView, progressDidChange progress: CGFloat) {
         
     }
     
-    func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
+    func pullToRefresh(_ view: PullToRefreshView, stateDidChange state: PullToRefreshViewState) {
         switch state {
-        case .Loading:
+        case .loading:
             animatorView.titleLabel.text = "Loading"
-        case .PullToRefresh:
+        case .pullToRefresh:
             animatorView.titleLabel.text = "Pull to refresh"
-        case .ReleaseToRefresh:
+        case .releaseToRefresh:
             animatorView.titleLabel.text = "Release to refresh"
         }
     }
