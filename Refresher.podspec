@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'Refresher'
-  s.version      = '0.6.0'
+  s.version      = '0.6.1'
   s.summary      = 'Pull to refresh in Swift'
 
   s.description  = <<-DESC
