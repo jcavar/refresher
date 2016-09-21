@@ -27,13 +27,13 @@ import UIKit
 
 internal class AnimatorView: UIView {
     
-    fileprivate let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    fileprivate let activityIndicatorView: UIActivityIndicatorView = {
+    private let activityIndicatorView: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
