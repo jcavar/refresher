@@ -5,9 +5,9 @@
 Refresher is pull to refresh library written in Swift. It provides easy to use UIScrollView methods to add pull to refresh to your view. 
 Refresher also supports custom animations.
 
-##Usage
+## Usage
 
-###Basic usage
+### Basic usage
 
 ```swift
 tableView.addPullToRefreshWithAction {
@@ -20,7 +20,7 @@ tableView.addPullToRefreshWithAction {
 }
 ```
 
-###Custom animations
+### Custom animations
 
 Refresher supports custom animations on `PullToRefreshView`. You need to create object that conforms to `PullToRefreshViewAnimator` protocol.
 Then, just pass your custom animator in `addPullToRefrshWithAction`:
@@ -44,7 +44,7 @@ Required methods that your custom object need to implement are:
 *   `func pullToRefresh(view: PullToRefreshView, stateDidChange state: PullToRefreshViewState)` - Called when `PullToRefreshView` changes its state  
 
 
-###Custom views
+### Custom views
 
 You can use your own custom `UIView` subclass as pull to refresh view.
 
@@ -64,39 +64,39 @@ if let customSubview = NSBundle.mainBundle().loadNibNamed("CustomSubview", owner
 
 Your custom subclass has to conform to `PullToRefreshViewDelegate`.
 
-##Requirements
+## Requirements
 
 *	Xcode 6
 *	iOS 8.0
 
-##Installation
+## Installation
 
-###Git submodule
+### Git submodule
 
 1.	Add Refresher as a git submodule into your top-level project directory or simply copy whole folder
 2.	Find `PullToRefresh.xcodeproj` and drag it into the file navigator of your app project.
 3.	In Xcode, navigate to the target configuration window by clicking on the blue project icon, and selecting the application target under the "Targets" heading in the sidebar.
 4.	Under "General" panel go to "Linked Frameworks and Libraries" and add `Refresher.framework`
 
-###Framework
+### Framework
 
 1.	Simply download Refresher
 2.	Build it and you should find `Refresher.framework` under "Products" group.
 3.	Right click on it and select "Show in Finder" option.
 4.	Just drag and drop `Refresher.framework` to your project
 
-###Cocoapods
+### Cocoapods
 
 1.	Add `pod 'Refresher'` to your Podfile
 2.	Run `pod install`
 
-##Examples
+## Examples
 
 ![Refresher: preview default](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_default.gif)
 ![Refresher: preview beat](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_beat.gif)
 ![Refresher: preview pacman](https://raw.githubusercontent.com/jcavar/refresher/master/previews/anim_pacman.gif)
 
-##Credits
+## Credits
 
 Refresher is created by [Josip Ćavar](https://twitter.com/josip04) and inspired by [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh/). If you have suggestions or bug reports, feel free to send pull request or [create new issue](https://github.com/jcavar/refresher/issues/new).
 
