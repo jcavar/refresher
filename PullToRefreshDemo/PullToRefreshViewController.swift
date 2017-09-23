@@ -93,11 +93,11 @@ class PullToRefreshViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    @objc func tableView(_ tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return 50
     }
     
-    func tableView(_ tableView: UITableView!, cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
+    @objc func tableView(_ tableView: UITableView!, cellForRowAtIndexPath indexPath: IndexPath!) -> UITableViewCell! {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         cell.textLabel?.text = "Row " + String(indexPath.row + 1)
         return cell
