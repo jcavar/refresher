@@ -27,21 +27,17 @@ import XCTest
 class BouncesTests: XCTestCase {
     
     override func setUp() {
-        
         super.setUp()
     }
     
     override func tearDown() {
-        
         super.tearDown()
     }
     
     func testScrollViewBouncesWhenFalse() {
-        
         let scrollView = UIScrollView()
         scrollView.bounces = false;
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.addPullToRefreshWithAction { }
         scrollView.startPullToRefresh()
         XCTAssertTrue(!scrollView.bounces, "bounces should be false")
         scrollView.stopPullToRefresh()
@@ -49,11 +45,9 @@ class BouncesTests: XCTestCase {
     }
     
     func testScrollViewBouncesWhenTrue() {
-        
         let scrollView = UIScrollView()
         scrollView.bounces = true;
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.addPullToRefreshWithAction { }
         scrollView.startPullToRefresh()
         XCTAssertTrue(!scrollView.bounces, "bounces should be false")
         scrollView.stopPullToRefresh()
