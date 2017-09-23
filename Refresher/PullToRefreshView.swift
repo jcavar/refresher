@@ -25,14 +25,12 @@ import UIKit
 import QuartzCore
 
 public enum PullToRefreshViewState {
-
     case loading
     case pullToRefresh
     case releaseToRefresh
 }
 
 public protocol PullToRefreshViewDelegate {
-    
     func pullToRefreshAnimationDidStart(_ view: PullToRefreshView)
     func pullToRefreshAnimationDidEnd(_ view: PullToRefreshView)
     func pullToRefresh(_ view: PullToRefreshView, progressDidChange progress: CGFloat)
@@ -63,7 +61,7 @@ open class PullToRefreshView: UIView {
     }
     
     
-    //MARK: Object lifecycle methods
+    // MARK: Object lifecycle methods
 
     convenience init(action :@escaping (() -> ()), frame: CGRect) {
         var bounds = frame
@@ -99,7 +97,7 @@ open class PullToRefreshView: UIView {
     }
     
     
-    //MARK: UIView methods
+    // MARK: UIView methods
     
     open override func willMove(toSuperview newSuperview: UIView!) {
         self.observation?.invalidate()
@@ -129,14 +127,14 @@ open class PullToRefreshView: UIView {
     }
     
     
-    //MARK: PullToRefreshView methods
+    // MARK: PullToRefreshView methods
 
     private func startAnimating() {
         let scrollView = superview as! UIScrollView
         var insets = scrollView.contentInset
         insets.top += self.frame.size.height
         
-        // we need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
+        // We need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
         UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {

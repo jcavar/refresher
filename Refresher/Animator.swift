@@ -26,13 +26,11 @@ import QuartzCore
 import UIKit
 
 internal class AnimatorView: UIView {
-    
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     fileprivate let activityIndicatorView: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +58,6 @@ internal class AnimatorView: UIView {
 }
 
 class Animator: PullToRefreshViewDelegate {
-    
     internal let animatorView: AnimatorView
 
     init(frame: CGRect) {
