@@ -63,7 +63,7 @@ open class PullToRefreshView: UIView {
     
     // MARK: Object lifecycle methods
 
-    convenience init(action :@escaping (() -> ()), frame: CGRect) {
+    convenience init(action: @escaping (() -> ()), frame: CGRect) {
         var bounds = frame
         bounds.origin.y = 0
         let animator = Animator(frame: bounds)
@@ -72,14 +72,14 @@ open class PullToRefreshView: UIView {
         addSubview(animator.animatorView)
     }
 
-    convenience init(action :@escaping (() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate, subview: UIView) {
+    convenience init(action: @escaping (() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate, subview: UIView) {
         self.init(frame: frame, animator: animator)
         self.action = action;
         subview.frame = self.bounds
         addSubview(subview)
     }
     
-    convenience init(action :@escaping (() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate) {
+    convenience init(action: @escaping (() -> ()), frame: CGRect, animator: PullToRefreshViewDelegate) {
         self.init(frame: frame, animator: animator)
         self.action = action;
     }
@@ -93,7 +93,7 @@ open class PullToRefreshView: UIView {
     public required init?(coder aDecoder: NSCoder) {
         self.animator = Animator(frame: CGRect.zero)
         super.init(coder: aDecoder)
-        // Currently it is not supported to load view from nib
+        // It is not currently supported to load view from nib
     }
     
     
