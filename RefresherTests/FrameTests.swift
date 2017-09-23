@@ -27,65 +27,43 @@ import XCTest
 class FrameTests: XCTestCase {
     
     override func setUp() {
-        
         super.setUp()
     }
     
     override func tearDown() {
-        
         super.tearDown()
     }
     
     func testPullToRefreshViewFrame() {
-        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
-        }
+        scrollView.addPullToRefreshWithAction { }
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+        XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
     }
     
     func testPullToRefreshViewFrameWithInsets() {
-        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
         scrollView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
-            XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
-        }
+        scrollView.addPullToRefreshWithAction { }
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertEqual(scrollView.pullToRefreshView!.frame.width, scrollView.frame.width, "scrollView and pullToRefreshView should have same width")
+        XCTAssertGreaterThan(scrollView.pullToRefreshView!.frame.height, CGFloat(0), "height should be grater than zero")
     }
     
     func testPullToRefreshViewFrameWhenStarted() {
-        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.addPullToRefreshWithAction { }
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(scrollView.pullToRefreshView!.frame.height, scrollView.contentInset.top, "height should be equal to inset when animating")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
-        }
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertEqual(scrollView.pullToRefreshView!.frame.height, scrollView.contentInset.top, "height should be equal to inset when animating")
     }
     
     func testPullToRefreshViewOffsetWhenStarted() {
-        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: 100, height: 500))
-        scrollView.addPullToRefreshWithAction({ () -> () in
-        })
+        scrollView.addPullToRefreshWithAction { }
         scrollView.startPullToRefresh()
-        if (scrollView.pullToRefreshView != nil) {
-            XCTAssertEqual(-scrollView.contentInset.top, scrollView.contentOffset.y, "content offset should be equal to content inset")
-        } else {
-            XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
-        }
+        XCTAssertNotNil(scrollView.pullToRefreshView, "pullToRefreshView should not be nil")
+        XCTAssertEqual(-scrollView.contentInset.top, scrollView.contentOffset.y, "content offset should be equal to content inset")
     }
 }
