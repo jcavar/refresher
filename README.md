@@ -1,3 +1,8 @@
+## DEPRECATED
+This library is no longer maintained.
+I am not using it in any of my projects, and I, unfortunately, don't have time to maintain it in my free time.
+Please [open an issue](https://github.com/jcavar/refresher/issues/new) if you are willing to become the new maintainer.
+
 <img src="https://raw.githubusercontent.com/jcavar/refresher/master/refresher.png" width="250" />
 
 [![Build Status](https://travis-ci.org/jcavar/refresher.svg)](https://travis-ci.org/jcavar/refresher)
