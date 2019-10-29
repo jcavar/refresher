@@ -32,14 +32,14 @@ internal class AnimatorView: UIView {
         return label
     }()
     fileprivate let activityIndicatorView: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let activity = UIActivityIndicatorView(style: .gray)
         activity.translatesAutoresizingMaskIntoConstraints = false
         return activity
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         addSubview(titleLabel)
         addSubview(activityIndicatorView)
         

@@ -137,7 +137,7 @@ open class PullToRefreshView: UIView {
         // We need to restore previous offset because we will animate scroll view insets and regular scroll view animating is not applied then
         scrollView.contentOffset.y = previousOffset
         scrollView.bounces = false
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions(), animations: {
             scrollView.contentInset = insets
             scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: -insets.top)
         }, completion: {finished in
